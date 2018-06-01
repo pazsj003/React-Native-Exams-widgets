@@ -25,9 +25,7 @@ public class ModuleService {
 	@Autowired
 	ModuleRepository moduleRepository;
 	@PostMapping("/api/course/{courseId}/module")
-	public Module createModule(
-			@PathVariable("courseId") int courseId,
-			@RequestBody Module newModule) {
+	public Module createModule(@PathVariable("courseId") int courseId,@RequestBody Module newModule) {
 		Optional<Course> data = courseRepository.findById(courseId);
 		if(data.isPresent()) {
 			Course course = data.get();
@@ -52,11 +50,10 @@ public class ModuleService {
 	public void deleteModule(@PathVariable("mId")int moduleId) {
 		moduleRepository.deleteById(moduleId);
 	}
-	@Autowired
-	ModuleRepository ModuleRepository;	
+
 	@GetMapping("/api/module")
 	public Iterable<Module> findAllModules() {
-		return ModuleRepository.findAll(); 
+		return moduleRepository.findAll(); 
 	}
 
 
