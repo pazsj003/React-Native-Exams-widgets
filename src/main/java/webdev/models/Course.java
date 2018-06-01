@@ -9,7 +9,6 @@ public class Course {
 	 @OneToMany(mappedBy="course")
 	    private List<Module> modules;
 
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -52,6 +51,14 @@ public class Course {
 
 	public int getId() {
 		return id;
+	}
+	public List<Module> getModules() {
+		return modules;
+	}
+
+
+	public void setModules(List<Module> modules) {
+		this.modules = modules;
 	}
 
 

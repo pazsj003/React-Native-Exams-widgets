@@ -20,7 +20,7 @@ class CourseManger extends Component {
                     <Route path="/courses"
                            component={CourseList}>
                     </Route>
-                    <Route path="/course/:courseId/edit"
+                    <Route path="/course/:courseId"
                            component={CourseEditor}>
                     </Route>
 

@@ -8,6 +8,8 @@ export default class CourseEditor
     constructor(props){
         super(props);
         this.selectCourse = this.selectCourse.bind(this);
+        this.state={courseId:''}
+
 
     }
     selectCourse(courseId) {
