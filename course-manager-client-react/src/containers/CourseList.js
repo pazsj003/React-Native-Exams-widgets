@@ -3,14 +3,14 @@ import CourseServiceClient from "../services/CourseServiceClient"
 import CourseRow from "../components/CourseRow";
 import CourseEditor from "./CourseEditor";
 import ModuleList from "./ModuleList"
-
+import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
 
 class CourseList extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            course: {tittle: '', id: ''},
+            course: {tittle: ''},
 
 
 
@@ -38,7 +38,7 @@ class CourseList extends React.Component {
     findAllCourses() {
         this.courseService.findAllCourses()
             .then((courses) => {
-                console.log(courses);
+
                 this.setState({courses: courses});
             });
     }
@@ -48,7 +48,9 @@ class CourseList extends React.Component {
         if (this.state) {
             courses = this.state.courses.map(
                 (course) => {
-                    return <CourseRow key={course.id} course={course}
+                    return <CourseRow key={course.id}
+                                      course={course}
+                                      title={course.title}
                                       delete={this.deleteCourse}/>
                 });
         }
@@ -60,7 +62,7 @@ class CourseList extends React.Component {
 
     titleChanged(event) {
 
-        console.log("titleChanged")
+
         this.setState({
             course: {title: event.target.value}
         });
@@ -78,7 +80,7 @@ class CourseList extends React.Component {
     }
 
     deleteCourse(courseId) {
-        console.log('delete ' + courseId);
+
         this.courseService
             .deleteCourse(courseId)
             .then(() => {
@@ -89,9 +91,15 @@ class CourseList extends React.Component {
 
     render() {
         return (
-            <div>
-                <h2>Course List</h2>
 
+            <div>
+                <h5>Course List</h5>
+             <div>
+                <Route path="/course/:courseId"
+                component={CourseEditor}>
+                </Route>
+
+                 </div>
                 <table className="table">
                     <thead>
 
@@ -114,14 +122,15 @@ class CourseList extends React.Component {
 
 
                     </thead>
-                    <tbody>
+
                     {this.renderCourseRows()}
 
 
-                    </tbody>
+
                 </table>
 
             </div>
+
 
 
         )

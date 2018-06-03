@@ -1,6 +1,6 @@
 import React from 'react';
 import ModuleListItem from '../components/ModuleListItem';
-
+import LessonTabs from './LessonTabs';
 import ModuleServiceClient from '../services/ModuleServiceClient';
 import ModuleEditor from './ModuleEditor';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
@@ -9,7 +9,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 class ModuleList extends React.Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             courseId: '',
 
@@ -62,7 +62,7 @@ class ModuleList extends React.Component {
 
 
     titleChanged(event) {
-        console.log(event.target.value);
+
         this.setState({module: {title: event.target.value}});
 
     }
@@ -82,7 +82,7 @@ class ModuleList extends React.Component {
 
     deleteModule(moduleId) {
 
-        console.log(moduleId);
+
         this.moduleService
             .deleteModule(moduleId)
             .then(() => {
@@ -97,6 +97,7 @@ class ModuleList extends React.Component {
         let modules = this.state.modules
             .map((module) => {
                 return <ModuleListItem
+                    courseId={this.props.courseId}
                     title={module.title}
                     key={module.id}
                     delete={this.deleteModule}
@@ -112,16 +113,12 @@ class ModuleList extends React.Component {
         return (
             <Router>
             <div className="row">
-                <div className="col-4">
-                    <h3>Module List for course:{this.state.courseId}</h3>
-                </div>
-                <div className="col-8">
-                    <Route path="/course/:courseId/module/:moduleId"
-                           component={ModuleEditor}/>
 
-                </div>
 
-                <div className="container-fluid">
+
+                <div className="col-3">
+
+                <div >
                     <input className="form-control"
                            onChange={this.titleChanged}
                            placeholder="title"/>
@@ -130,14 +127,28 @@ class ModuleList extends React.Component {
                         <i className="fa fa-plus"></i>
                     </button>
 
-                    <ul className="list-group">
+                    <ul className="list-group-item">
                         {this.renderListOfModules()}
                     </ul>
                 </div>
+                    </div>
+                <div className="col-8">
+                    <div >
+                        <Route path="/course/:courseId/module/:moduleId"
+                               component={ModuleEditor}/>
+
+                    </div>
+                {/*<LessonTabs courseId={this.state.courseId}*/}
+                            {/*moduleId ={this.state.module.id}*/}
+                {/*/>*/}
+
+                </div>
+
+
 
 
             </div>
-            </Router>
+    </Router>
         )
 
     }

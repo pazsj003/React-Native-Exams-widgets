@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 
 import CourseCard from '../components/CourseCard'
 import ModuleList from './ModuleList'
+import ModuleEditor from './ModuleEditor'
 import LessonTabs from './LessonTabs'
 import CourseEditor from './CourseEditor'
 import CourseList from './CourseList'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
 
 class CourseManger extends Component {
 
@@ -13,37 +14,31 @@ class CourseManger extends Component {
         return (
             <Router>
                 <div className="container-fluid">
-
-                    <h1>Course Manger</h1>
-                    {/*<CourseList/>*/}
-
+                    <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
+                    <Link className="navbar-brand" to={`/courses/`}>
+                        Course Manger
+                    {/*<h3>Course Manger</h3>*/}
+                    </Link>
+                        </nav>
                     <Route path="/courses"
                            component={CourseList}>
                     </Route>
-                    <Route path="/course/:courseId"
-                           component={CourseEditor}>
-                    </Route>
+                    <Route  path="/course/:courseId"
+                                    component={CourseEditor}>
+                </Route>
+                    {/*<Route path="/course/:courseId/module"*/}
+                           {/*component={ModuleList}>*/}
+                    {/*</Route>*/}
+
+                    {/*<Route path="/course/:courseId/module/:moduleId"*/}
+                           {/*component={ModuleEditor}>*/}
+                    {/*</Route>*/}
+                    {/*<Route path="/course/:courseId/module/:moduleId/lesson/:lessonId"*/}
+                           {/*component={LessonTabs}>*/}
+                    {/*</Route>*/}
 
                 </div>
 
-                {/*<Route path="/examples"*/}
-                {/*component={CourseList}>*/}
-
-                {/*<div>*/}
-                {/*<div className="card-deck">*/}
-                {/*<CourseCard/>*/}
-                {/*<CourseCard/>*/}
-                {/*<CourseCard/>*/}
-                {/*<CourseCard/>*/}
-                {/*</div>*/}
-                {/*<CourseEditor/>*/}
-                {/*<br/>*/}
-                {/*<LessonTabs/>*/}
-                {/*<ModuleList/>*/}
-
-                {/*</div>*/}
-                {/*</Route>*/}
-                {/*</div>*/}
             </Router>
         )
 
