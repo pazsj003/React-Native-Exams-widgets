@@ -1,8 +1,11 @@
 import React from 'react';
 import LessonTabs from "./LessonTabs";
 import {BrowserRouter as Router, Route} from 'react-router-dom'
+import ModuleServiceClient from "../services/ModuleServiceClient";
+import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import Radium from 'radium';
 
-export default class ModuleEditor
+class ModuleEditor
     extends React.Component {
     constructor(props) {
         super(props);
@@ -10,9 +13,12 @@ export default class ModuleEditor
             this.setCourseId.bind(this);
         this.setModuleId =
             this.setModuleId.bind(this);
+        this.moduleService = ModuleServiceClient.instance;
         this.state = {
-            courseId: '', moduleId: ''
+            courseId: '', moduleId: '',
+            title:'',
         };
+
     }
 
 
@@ -21,10 +27,24 @@ export default class ModuleEditor
         ({courseId: courseId});
     }
 
+
     setModuleId(moduleId) {
         this.setState
         ({moduleId: moduleId});
+        this.renderModule(moduleId);
     }
+    findModuleById(moduleId){
+        return  this.moduleService
+            .findModuleById(moduleId)
+
+    }
+    renderModule(moduleId){
+        this.findModuleById(moduleId).then((module)=>{
+            this.setState({title: module.title});
+        });
+
+    }
+
 
     componentDidMount() {
         this.setCourseId(
@@ -35,36 +55,32 @@ export default class ModuleEditor
     }
 
     componentWillReceiveProps(newProps) {
-        this.setCourseId(
-            newProps.match.params.courseId);
-
-        this.setModuleId(
-            newProps.match.params.moduleId);
+        // if(this.props.courseId!=newProps.courseId) {
+        //     this.setCourseId(
+        //         newProps.match.params.courseId);
+        // }
+        // if(this.props.moduleId!=newProps.moduleId) {
+            this.setModuleId(
+                newProps.match.params.moduleId);
+        // }
     }
 
 
     render() {
         return (
 
-            <div className="row">
-                {/*<div>*/}
-
-                    {/*</div>*/}
-                {/*<div className="col-3">*/}
-                    {/*<Route path="/course/:courseId/module/:moduleId/lesson/:lessonId" component={LessonTabs}/>*/}
+            <div>
 
 
 
 
 
-                {/*</div>*/}
-                <div >
-                    <h5>Module Editor {this.state.moduleId}</h5>
+                    <nav style={{fontSize:'20px',backgroundColor:'#f1f1f1'}}> {this.state.title}</nav>
                     <LessonTabs courseId={this.state.courseId}
-                                moduleId ={this.state.moduleId}
+                                moduleId={this.state.moduleId}
                     />
 
-                </div>
+
             </div>
 
 
@@ -73,3 +89,4 @@ export default class ModuleEditor
 
 
 }
+export default Radium(ModuleEditor);

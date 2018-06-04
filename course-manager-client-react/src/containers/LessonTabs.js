@@ -1,12 +1,17 @@
 import React from 'react'
 import LessonServiceClient from "../services/LessonServiceClient";
 import LessonListItem from '../components/LessonListItem';
+import TopicList from './TopicList';
+import LessonEditor from './LessonEditor';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import ModuleEditor from "./ModuleEditor";
+import {Switch } from 'react-router'
+import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import Radium from 'radium';
 
-export default class LessonTabs
+ class LessonTabs
     extends React.Component {
     constructor(props) {
         super(props);
@@ -68,14 +73,24 @@ export default class LessonTabs
 
         this.setCourseId(this.props.courseId);
         this.setModuleId(this.props.moduleId);
+
     }
+
 
     componentWillReceiveProps(newProps) {
-        this.setCourseId(newProps.courseId);
-        this.setModuleId(newProps.moduleId);
+        if(this.props.courseId!=newProps.courseId){
+            this.setCourseId(newProps.courseId);
+        }
+       if(this.props.moduleId!=newProps.moduleId){
+           this.setModuleId(newProps.moduleId);
+           this.findAllLessonForModule(newProps.moduleId);
+       }
+
 
 
     }
+
+
 
     setCourseId(courseId) {
         this.setState({courseId: courseId});
@@ -108,41 +123,48 @@ export default class LessonTabs
                     title={Lesson.title}
                     key={Lesson.id}
                     courseId={this.props.courseId}
-                    delete={this.deleteModule}
+                    delete={this.deleteLesson}
                     Lesson={Lesson}
 
                 />
             });
 
-        return <ul className="nav nav-tabs">{Lessons}</ul>;
+        return Lessons;
     }
 
     render() {
         return (
+
             <div>
-                <div>
-                    <input onChange={this.titleChanged}
-                               className="form-control"
-                               id="titleFld"
-                               placeholder="Lesson one"/>
 
-                        <button onClick={this.CreateLesson}
-                                className="btn btn-primary">Add
-
-                        </button>
-
-
-
-                </div>
 
                 <ul className="nav nav-tabs">
                     {this.renderListOfLessons()}
 
+                    <li>
+                    <form className="form-inline">
+                        <input
+                            onChange={this.titleChanged}
+                            className="form-control mr-sm-2"
 
-
+                            id="titleFld"
+                            placeholder="Lesson"
+                            aria-label="Search"/>
+                        <button
+                            onClick={this.CreateLesson}
+                            className="btn btn-outline-success my-2 my-sm-0"  >Add
+                        </button>
+                    </form>
+                        </li>
                 </ul>
+                <Route  exact path="/course/:courseId/module/:moduleId/lesson/:lessonId"
+                component={LessonEditor}>
+                </Route>
+
             </div>
+
 
         );
     }
 }
+export default  Radium (LessonTabs);

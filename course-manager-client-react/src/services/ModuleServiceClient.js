@@ -24,6 +24,13 @@ export default class ModuleServiceClient {
             method: 'delete'
         })
     }
+    findModuleById(moduleId){
+        return fetch(MODULE_API_URL_FIND + '/' + moduleId)
+            .then(function (response) {
+                return response.json()
+
+            })
+    }
 
     findAllModulesForCourse(courseId) {
         return fetch(

@@ -16,19 +16,17 @@ public class Module {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@OneToMany(mappedBy="module")
-	  private List<Lesson> lessons;
 
-	public List<Lesson> getLessons() {
-		return lessons;
-	}
-	public void setLessons(List<Lesson> lessons) {
-		this.lessons = lessons;
-	}
+
+	
 	private String title;
 	@ManyToOne
 	@JsonIgnore
 	private Course course;
+	@OneToMany(mappedBy="module")
+	  private List<Lesson> lessons;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -46,5 +44,11 @@ public class Module {
 	}
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+	public List<Lesson> getLessons() {
+		return lessons;
+	}
+	public void setLessons(List<Lesson> lessons) {
+		this.lessons = lessons;
 	}
 }
