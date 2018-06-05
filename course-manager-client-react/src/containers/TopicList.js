@@ -7,6 +7,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import ModuleEditor from "./ModuleEditor";
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import Radium from 'radium';
+
 class TopicList
     extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class TopicList
             topic: {tittle: '', id: ''},
             moduleId: '',
             courseId: '',
-            lessonId:'',
+            lessonId: '',
             topics: [
                 {title: 'Topics 1', id: 123},
                 {title: 'Topics 2 ', id: 234},
@@ -45,7 +46,6 @@ class TopicList
     CreateTopic() {
         this.topicService
             .CreateTopics(
-
                 this.state.lessonId,
                 this.state.topic)
             .then(() => {
@@ -76,17 +76,11 @@ class TopicList
     }
 
     componentWillReceiveProps(newProps) {
-        // if(this.props.courseId!=newProps.courseId){
-        //     this.setCourseId(newProps.courseId);
-        // }
-        // if(this.props.moduleId!=newProps.moduleId){
-        //     this.setModuleId(newProps.moduleId);
-        // }
-        if(this.props.lessonId!=newProps.lessonId){
+
+        if (this.props.lessonId != newProps.lessonId) {
             this.setLessonId(newProps.lessonId);
             this.findAllTopicsForLesson(newProps.lessonId);
         }
-
 
 
     }
@@ -98,8 +92,9 @@ class TopicList
     setModuleId(ModuleId) {
         this.setState({moduleId: ModuleId});
     }
+
     setLessonId(LessonId) {
-        this.setState({lessonId:LessonId});
+        this.setState({lessonId: LessonId});
     }
 
 
@@ -121,7 +116,7 @@ class TopicList
     renderListOfTopics() {
         let Topics = this.state.topics
             .map((topic) => {
-                    return <TopicListItem
+                return <TopicListItem
                     moduleId={this.state.moduleId}
                     title={topic.title}
                     key={topic.id}
@@ -145,18 +140,18 @@ class TopicList
                     {this.renderListOfTopics()}
                     <div>
                         <form className="form-inline">
-                        <input onChange={this.titleChanged}
+                            <input onChange={this.titleChanged}
 
-                               className="form-control mr-sm-2"
-                               id="titleFld"
-                               placeholder="Topic"/>
+                                   className="form-control mr-sm-2"
+                                   id="titleFld"
+                                   placeholder="Topic"/>
 
-                        <button onClick={this.CreateTopic}
-                                className="btn btn-outline-success my-2 my-sm-0" >Add
+                            <button onClick={this.CreateTopic}
+                                    className="btn btn-outline-success my-2 my-sm-0">Add
 
-                        </button>
+                            </button>
 
-</form>
+                        </form>
                     </div>
 
                 </ul>
@@ -166,4 +161,5 @@ class TopicList
         );
     }
 }
+
 export default Radium(TopicList);

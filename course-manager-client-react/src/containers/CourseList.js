@@ -3,10 +3,12 @@ import CourseServiceClient from "../services/CourseServiceClient"
 import CourseRow from "../components/CourseRow";
 import CourseEditor from "./CourseEditor";
 import ModuleList from "./ModuleList"
-import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
-import { Switch} from 'react-router'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import {Switch} from 'react-router'
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import Radium from 'radium';
+
+const Course_API_URL = 'https://course-manager-react-sijiazhu.herokuapp.com/courses';
 
 class CourseList extends React.Component {
     constructor(props) {
@@ -16,14 +18,10 @@ class CourseList extends React.Component {
             course: {tittle: ''},
 
 
-
             courses: [
                 {title: 'Couese 1 - jQuery', id: 123},
                 {title: 'Couese 2 - React', id: 234},
-                {title: 'Couese 3 - Redux', id: 345},
-                {title: 'Couese 4 - Angular', id: 456},
-                {title: 'Couese 5 - Node.js', id: 567},
-                {title: 'Couese 6 - MongoDB', id: 678},]
+            ]
         };
 
         this.courseService = CourseServiceClient.instance;
@@ -94,50 +92,164 @@ class CourseList extends React.Component {
 
     render() {
         return (
+
             <Switch>
-            <div>
-                <h5>Course List</h5>
-             <div>
-                <Route exact path="/course/:courseId"
-                component={CourseEditor}>
-                </Route>
+                <div>
+                    <nav className="navbar navbar-expand-lg navbar-light bg-light ">
+                        <img src="https://cdn3.iconfinder.com/data/icons/education-3-5/48/108-64.png"
+                             className="img-rounded"/>
+                        <div>
+                            <a className="navbar-brand " style={styles.courseTittle} href="#">Course Manager</a>
 
-                 </div>
-                <table className="table">
-                    <thead>
+                        </div>
+                        <div className="navbar-brand " id="navbarNav" style={styles.position}>
+                            <ul className="navbar-nav">
 
-                    <tr>
-                        <th><input onChange={this.titleChanged}
-                                   className="form-control"
-                                   id="titleFld"
-                                   placeholder="cs101"/></th>
-                        <th>
-                            <button onClick={this.createCourse}
-                                    className="btn btn-primary">Add
-
-                            </button>
-                        </th>
-                    </tr>
-
-                    <tr>
-                        <th>Title</th>
-                    </tr>
+                                <li className="nav-item ">
+                                    <a className="nav-link" href={Course_API_URL}>Courses <span
+                                        className="sr-only">(current)</span></a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Sources</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Blackboard</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link disabled" href="#">Log In</a>
+                                </li>
 
 
-                    </thead>
+                            </ul>
 
-                    {this.renderCourseRows()}
+                        </div>
+                    </nav>
+                    <div>
+                        <Route exact path="/course/:courseId"
+                               component={CourseEditor}>
+                        </Route>
+
+                    </div>
+
+                    <table className="table ">
 
 
+                        <ul className="nav nav-tabs ">
+                            <li>
+                                <th>Title</th>
+                            </li>
+                            <li style={{paddingLeft: '447px'}}>
 
-                </table>
+                                <form className="form-inline float-right ">
+                                    <th><input onChange={this.titleChanged}
+                                               className="form-control "
+                                               id="titleFld"
+                                               placeholder="cs101"/></th>
+                                    <th>
+                                        <button onClick={this.createCourse}
+                                                className="btn btn-outline-success my-2 my-sm-0">Add
 
-            </div>
+                                        </button>
+
+                                    </th>
+                                </form>
+
+                            </li>
+                        </ul>
+
+
+                        <div>
+
+                            <tbody>
+                            {this.renderCourseRows()}
+                            </tbody>
+
+                        </div>
+
+                    </table>
+
+
+                </div>
+
 
             </Switch>
 
+
         )
     }
+}
+
+const styles = {
+    tab: {
+        float: 'left',
+        // border: '1px solid #ccc',
+        // paddingRight: '100px',
+        position: 'relative',
+        backgroundColor: '#f1f1f1',
+        width: '700px',
+        height: '50px',
+
+
+        /* Style the buttons inside the tab */
+        ':button': {
+            display: 'block',
+            backgroundColor: 'inherit',
+            color: 'black',
+            padding: '0px 10px',
+            // width: '100%',
+            // border: 'none',
+            // outline: 'none',
+            textAlign: 'left',
+            cursor: 'pointer',
+            transition: ' 0.3s',
+            fontSize: '17px',
+        },
+
+        /* Change background color of buttons on hover */
+        ':hover': {
+            backgroundColor: '#ddd',
+        },
+
+        /* Create an active/current "tab button" class */
+        ':active': {
+            backgroundColor: '#ccc',
+        },
+        ':link': {
+            display: 'block',
+            backgroundColor: 'inherit',
+            color: 'black',
+            padding: '0px 10px',
+            // width: '100%',
+            // border: 'none',
+            // outline: 'none',
+            textAlign: 'left',
+            cursor: 'pointer',
+            transition: ' 0.3s',
+            fontSize: '17px',
+        }
+
+    },
+    courseTittle: {
+        color: 'black',
+        width: '50px',
+        height: '50px',
+        fontSize: '30px',
+        fontFamily: 'Lucida Console',
+    },
+
+
+    position: {
+
+        paddingLeft: '200px',
+    },
+
+    naviationText: {
+
+        fontSize: '30px',
+
+    }
+
+
 }
 
 export default Radium(CourseList);

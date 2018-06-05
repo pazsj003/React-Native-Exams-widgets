@@ -7,11 +7,11 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import ModuleEditor from "./ModuleEditor";
-import {Switch } from 'react-router'
+import {Switch} from 'react-router'
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import Radium from 'radium';
 
- class LessonTabs
+class LessonTabs
     extends React.Component {
     constructor(props) {
         super(props);
@@ -78,18 +78,16 @@ import Radium from 'radium';
 
 
     componentWillReceiveProps(newProps) {
-        if(this.props.courseId!=newProps.courseId){
+        if (this.props.courseId != newProps.courseId) {
             this.setCourseId(newProps.courseId);
         }
-       if(this.props.moduleId!=newProps.moduleId){
-           this.setModuleId(newProps.moduleId);
-           this.findAllLessonForModule(newProps.moduleId);
-       }
-
+        if (this.props.moduleId != newProps.moduleId) {
+            this.setModuleId(newProps.moduleId);
+            this.findAllLessonForModule(newProps.moduleId);
+        }
 
 
     }
-
 
 
     setCourseId(courseId) {
@@ -142,23 +140,23 @@ import Radium from 'radium';
                     {this.renderListOfLessons()}
 
                     <li>
-                    <form className="form-inline">
-                        <input
-                            onChange={this.titleChanged}
-                            className="form-control mr-sm-2"
+                        <form className="form-inline">
+                            <input
+                                onChange={this.titleChanged}
+                                className="form-control mr-sm-2"
 
-                            id="titleFld"
-                            placeholder="Lesson"
-                            aria-label="Search"/>
-                        <button
-                            onClick={this.CreateLesson}
-                            className="btn btn-outline-success my-2 my-sm-0"  >Add
-                        </button>
-                    </form>
-                        </li>
+                                id="titleFld"
+                                placeholder="Lesson"
+                                aria-label="Search"/>
+                            <button
+                                onClick={this.CreateLesson}
+                                className="btn btn-outline-success my-2 my-sm-0">Add
+                            </button>
+                        </form>
+                    </li>
                 </ul>
-                <Route  exact path="/course/:courseId/module/:moduleId/lesson/:lessonId"
-                component={LessonEditor}>
+                <Route exact path="/course/:courseId/module/:moduleId/lesson/:lessonId"
+                       component={LessonEditor}>
                 </Route>
 
             </div>
@@ -167,4 +165,5 @@ import Radium from 'radium';
         );
     }
 }
-export default  Radium (LessonTabs);
+
+export default Radium(LessonTabs);

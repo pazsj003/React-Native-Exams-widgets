@@ -1,11 +1,12 @@
 import React from 'react';
 
-import {Link,Route} from 'react-router-dom'
+import {Link, Route} from 'react-router-dom'
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import ModuleEditor from "../containers/ModuleEditor";
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import Radium from 'radium';
- class LessonListItem
+
+class LessonListItem
     extends React.Component {
     constructor(props) {
         super(props);
@@ -14,20 +15,21 @@ import Radium from 'radium';
     render() {
         return (
 
-            <div >
+            <div>
 
                 <div style={[styles.tab]}>
 
-                <Link    class="tablinks" to={`/course/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.Lesson.id}`}>
+                    <Link class="tablinks"
+                          to={`/course/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.Lesson.id}`}>
 
 
                         <div style={styles.tabContent}>   {this.props.Lesson.title}</div>
 
 
-                </Link>
+                    </Link>
                 </div>
 
-                <span  className="float-right">
+                <span className="float-right">
                 <i className="fa fa-remove" onClick={() => {
                     this.props.delete
                     (this.props.Lesson.id)
@@ -36,16 +38,14 @@ import Radium from 'radium';
                   </span>
 
 
-
-
-
             </div>
         );
     }
 }
+
 const styles = {
     /* Style the tab */
-    tab : {
+    tab: {
         float: 'left',
         // border: '1px solid #ccc',
         // paddingRight: '100px',
@@ -79,7 +79,7 @@ const styles = {
         ':active': {
             backgroundColor: '#ccc',
         },
-        ':link':{
+        ':link': {
             display: 'block',
             backgroundColor: 'inherit',
             color: 'black',
@@ -95,9 +95,9 @@ const styles = {
 
     },
     /* Style the tab content */
-    tabContent :{
+    tabContent: {
         color: 'black',
-        fontSize:'15px',
+        fontSize: '15px',
         // float: 'left',
         paddingLeft: '20px',
 

@@ -16,7 +16,7 @@ class ModuleEditor
         this.moduleService = ModuleServiceClient.instance;
         this.state = {
             courseId: '', moduleId: '',
-            title:'',
+            title: '',
         };
 
     }
@@ -33,13 +33,15 @@ class ModuleEditor
         ({moduleId: moduleId});
         this.renderModule(moduleId);
     }
-    findModuleById(moduleId){
-        return  this.moduleService
+
+    findModuleById(moduleId) {
+        return this.moduleService
             .findModuleById(moduleId)
 
     }
-    renderModule(moduleId){
-        this.findModuleById(moduleId).then((module)=>{
+
+    renderModule(moduleId) {
+        this.findModuleById(moduleId).then((module) => {
             this.setState({title: module.title});
         });
 
@@ -55,13 +57,9 @@ class ModuleEditor
     }
 
     componentWillReceiveProps(newProps) {
-        // if(this.props.courseId!=newProps.courseId) {
-        //     this.setCourseId(
-        //         newProps.match.params.courseId);
-        // }
-        // if(this.props.moduleId!=newProps.moduleId) {
-            this.setModuleId(
-                newProps.match.params.moduleId);
+
+        this.setModuleId(
+            newProps.match.params.moduleId);
         // }
     }
 
@@ -72,13 +70,10 @@ class ModuleEditor
             <div>
 
 
-
-
-
-                    <nav style={{fontSize:'20px',backgroundColor:'#f1f1f1'}}> {this.state.title}</nav>
-                    <LessonTabs courseId={this.state.courseId}
-                                moduleId={this.state.moduleId}
-                    />
+                <nav style={{fontSize: '20px', backgroundColor: '#f1f1f1'}}> {this.state.title}</nav>
+                <LessonTabs courseId={this.state.courseId}
+                            moduleId={this.state.moduleId}
+                />
 
 
             </div>
@@ -89,4 +84,5 @@ class ModuleEditor
 
 
 }
+
 export default Radium(ModuleEditor);

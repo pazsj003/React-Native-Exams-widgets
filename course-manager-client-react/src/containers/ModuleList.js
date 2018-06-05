@@ -6,7 +6,7 @@ import ModuleEditor from './ModuleEditor';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-import {Switch } from 'react-router'
+import {Switch} from 'react-router'
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import Radium from 'radium';
 
@@ -18,7 +18,7 @@ class ModuleList extends React.Component {
             courseId: '',
 
 
-            module: {title: '',id:''},
+            module: {title: '', id: ''},
             modules: [
                 {title: 'Module 1 - jQuery', id: 123},
                 {title: 'Module 2 - React', id: 234},
@@ -55,7 +55,7 @@ class ModuleList extends React.Component {
     }
 
     componentWillReceiveProps(newProps) {
-        if(this.props.courseId!=newProps.courseId){
+        if (this.props.courseId != newProps.courseId) {
             this.setCourseId(newProps.courseId);
             this.findAllModulesForCourse(newProps.courseId);
         }
@@ -120,67 +120,55 @@ class ModuleList extends React.Component {
         return (
             <Switch>
 
-            <div className="row">
+                <div className="row">
 
-                <div className="col-lg-2">
-
-                <div >
-
-                    <ul style={styles.listGroupItem}>
-                        {this.renderListOfModules()}
-                    </ul>
-
-                    {/*<input className="form-control"*/}
-                           {/*onChange={this.ModuleTitleChanged}*/}
-                           {/*placeholder="title"/>*/}
-                    {/*<button onClick={this.createModule}*/}
-                            {/*className="btn btn-primary btn-block">*/}
-                        {/*<i className="fa fa-plus"></i>*/}
-                    {/*</button>*/}
-
-                    <form className="form-inline.form-control">
-
-                        <input className="form-control mr-sm-2"
-                               onChange={this.ModuleTitleChanged}
-                               placeholder="course"
-                               aria-label="Search"/>
-                        <button className="btn btn-outline-success my-2 my-sm-0 "
-                                onClick={this.createModule}
-                                type="submit">Add
-                        </button>
+                    <div className="col-lg-2">
 
 
 
-                    </form>
+                            <ul style={styles.listGroupItem}>
+                                {this.renderListOfModules()}
+                            </ul>
+
+                            <form className="form-inline.form-control">
+
+                                <input className="form-control mr-sm-2"
+                                       onChange={this.ModuleTitleChanged}
+                                       placeholder="course"
+                                       aria-label="Search"/>
+                                <button className="btn btn-outline-success my-2 my-sm-0 "
+                                        onClick={this.createModule}
+                                        type="submit">Add
+                                </button>
+
+
+                            </form>
+
+
+
+                    </div>
+
+                    <div className="col-10">
+                        <div>
+                            <Route path="/course/:courseId/module/:moduleId"
+                                   component={ModuleEditor}/>
+
+                        </div>
+
+
+                    </div>
 
 
                 </div>
-                    </div>
-
-                <div className="col-10">
-                    <div >
-                        <Route path="/course/:courseId/module/:moduleId"
-                               component={ModuleEditor}/>
-
-                    </div>
-                {/*<LessonTabs courseId={this.state.courseId}*/}
-                            {/*moduleId ={this.state.module.id}*/}
-                {/*/>*/}
-
-                </div>
-
-
-
-
-            </div>
-    </Switch>
+            </Switch>
         )
 
     }
 }
+
 const styles = {
     /* Style the tab */
-    tab : {
+    tab: {
         float: 'left',
         // border: '1px solid #ccc',
         backgroundColor: '#f1f1f1',
@@ -212,13 +200,13 @@ const styles = {
         ':active': {
             backgroundColor: '#ccc',
         },
-        ':link':{
-            color:'#000000',
+        ':link': {
+            color: '#000000',
         }
 
     },
     /* Style the tab content */
-    tabContent :{
+    tabContent: {
         float: 'left',
         // padding: '0px 12px',
         border: '1px solid #ccc',
@@ -227,15 +215,15 @@ const styles = {
         height: '50px',
     },
 
-    listGroupItem :{
-    position: 'relative',
-    display: 'block',
-    padding: '0rem 1rem',
-    marginBottom: '0.8 px',
-    backgroundColor: '#fff',
-    border: '1 px solid rgba(0, 0, 0, 0.125)',
-},
-    btnOutlineSuccess : {
+    listGroupItem: {
+        position: 'relative',
+        display: 'block',
+        padding: '0rem 1rem',
+        marginBottom: '0.8 px',
+        backgroundColor: '#fff',
+        border: '1 px solid rgba(0, 0, 0, 0.125)',
+    },
+    btnOutlineSuccess: {
         color: '#28a745',
         backgroundColor: 'transparent',
         backgroundImage: 'none',

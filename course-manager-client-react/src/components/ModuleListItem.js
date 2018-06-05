@@ -6,7 +6,8 @@ import ModuleEditor from "../containers/ModuleEditor";
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
 import Radium from 'radium';
- class ModuleListItem
+
+class ModuleListItem
     extends React.Component {
     constructor(props) {
         super(props);
@@ -15,28 +16,28 @@ import Radium from 'radium';
     render() {
         return (
 
-            <div className="row" >
+            <div className="row">
 
-                <dev style={[styles.tab]}>
+                <div style={[styles.tab]}>
 
-                    <Link   class="tablinks" to={`/course/${this.props.courseId}/module/${this.props.module.id}`}>
+                    <Link className="tablinks" to={`/course/${this.props.courseId}/module/${this.props.module.id}`}>
 
-                            <div style={styles.tabContent} >{this.props.module.title}</div>
+                        <div style={styles.tabContent}>{this.props.module.title}</div>
 
 
                     </Link>
 
 
                     <span className="float-right">
-                <i className="fa fa-remove" style="font-size:5px"   onClick={() => {
+                <i className="fa fa-remove" style="font-size:5px" onClick={() => {
                     this.props.delete
                     (this.props.module.id)
                 }}/>
-                {/*<i className="fa fa-pencil"></i>*/}
+                        {/*<i className="fa fa-pencil"></i>*/}
                   </span>
 
 
-                </dev>
+                </div>
 
             </div>
         );
@@ -45,7 +46,7 @@ import Radium from 'radium';
 
 const styles = {
     /* Style the tab */
-    tab : {
+    tab: {
         float: 'left',
         // border: '1px solid #ccc',
         // paddingRight: '100px',
@@ -79,7 +80,7 @@ const styles = {
         ':active': {
             backgroundColor: '#ccc',
         },
-        ':link':{
+        ':link': {
             display: 'block',
             backgroundColor: 'inherit',
             color: 'black',
@@ -94,21 +95,21 @@ const styles = {
         }
 
     },
-/* Style the tab content */
-    tabContent :{
+    /* Style the tab content */
+    tabContent: {
         color: 'black',
-        fontSize:'15px',
-    // float: 'left',
-    paddingLeft: '20px',
+        fontSize: '15px',
+        // float: 'left',
+        paddingLeft: '20px',
 
 
-    // border: '1px solid #ccc',
-    width: '200px',
-    // borderLeft: 'none',
-    height: '5px',
+        // border: '1px solid #ccc',
+        width: '200px',
+        // borderLeft: 'none',
+        height: '5px',
         verticalAlign: 'middle',
-    // lineHeight:'10px',
-},
+        // lineHeight:'10px',
+    },
 
 }
 

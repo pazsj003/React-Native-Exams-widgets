@@ -22,8 +22,8 @@ class LessonEditor
         this.lessonService = LessonServiceClient.instance;
         this.state = {
             courseId: '', moduleId: '',
-            lessonId:'',
-            title:'',
+            lessonId: '',
+            title: '',
         };
 
     }
@@ -33,6 +33,7 @@ class LessonEditor
         this.setState
         ({courseId: courseId});
     }
+
     setModuleId(moduleId) {
         this.setState
         ({moduleId: moduleId});
@@ -41,19 +42,14 @@ class LessonEditor
     setLessonId(LessonId) {
         this.setState
         ({lessonId: LessonId});
-        // this.renderLesson(lessonId);
+
     }
-    findLessonById(moduleId){
-        return  this.moduleService
+
+    findLessonById(moduleId) {
+        return this.moduleService
             .findModuleById(moduleId)
 
     }
-    // renderLesson(lessonId){
-    //     //     this.findLessonById(moduleId).then((module)=>{
-    //     //         this.setState({title: module.title});
-    //     //     });
-    //     //
-    //     // }
 
 
     componentDidMount() {
@@ -67,11 +63,7 @@ class LessonEditor
     }
 
     componentWillReceiveProps(newProps) {
-        // this.setCourseId(
-        //     newProps.match.params.courseId);
-        //
-        // this.setModuleId(
-        //     newProps.match.params.moduleId);
+
         this.setLessonId(
             newProps.match.params.lessonId);
     }
@@ -83,11 +75,10 @@ class LessonEditor
             <div>
 
 
-
                 <div>
 
                     <TopicList courseId={this.state.courseId}
-                                moduleId={this.state.moduleId}
+                               moduleId={this.state.moduleId}
                                lessonId={this.state.lessonId}
                     />
 
@@ -100,4 +91,5 @@ class LessonEditor
 
 
 }
+
 export default Radium(LessonEditor);

@@ -6,7 +6,7 @@ import CourseServiceClient from "../services/CourseServiceClient";
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import Radium from 'radium';
 
-const Course_API_URL = 'http://localhost:3000/courses';
+const Course_API_URL = 'https://course-manager-react-sijiazhu.herokuapp.com/courses';
 
 class CourseEditor
     extends React.Component {
@@ -28,9 +28,6 @@ class CourseEditor
         this.renderCourse(courseId);
     }
 
-    // selectCourseTitle(course) {
-    //     this.setState({tittle: course.tittle});
-    // }
 
     findCourseById(courseId) {
         return this.courseService
@@ -48,14 +45,14 @@ class CourseEditor
     componentDidMount() {
         this.selectCourse
         (this.props.match.params.courseId);
-        // this.selectCourseTitle(this.props.match.params.course);
+
 
     }
 
     componentWillReceiveProps(newProps) {
         this.selectCourse
         (newProps.match.params.courseId);
-        // this.selectCoursetitle(newProps.match.params.course);
+
     }
 
     render() {
@@ -66,12 +63,13 @@ class CourseEditor
 
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light ">
-                    <img src="https://cdn3.iconfinder.com/data/icons/education-3-5/48/108-64.png" className="img-rounded"/>
+                    <img src="https://cdn3.iconfinder.com/data/icons/education-3-5/48/108-64.png"
+                         className="img-rounded"/>
                     <div>
-                        <a className="navbar-brand "  style={styles.courseTittle} href="#">{this.state.title}</a>
+                        <a className="navbar-brand " style={styles.courseTittle} href="#">{this.state.title}</a>
 
                     </div>
-                    <div className="collapse navbar-collapse" id="navbarNav" style={styles.position}>
+                    <div className="navbar-brand" id="navbarNav" style={styles.position}>
                         <ul className="navbar-nav">
 
                             <li className="nav-item active">
@@ -87,19 +85,12 @@ class CourseEditor
                             <li className="nav-item">
                                 <a className="nav-link disabled" href="#">Log In</a>
                             </li>
-                            {/*<form className="form-inline">*/}
-                                {/*<input className="form-control mr-sm-2" type="search" placeholder="Search"*/}
-                                       {/*aria-label="Search"/>*/}
-                                {/*<button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search*/}
-                                {/*</button>*/}
-                            {/*</form>*/}
+
 
                         </ul>
 
                     </div>
                 </nav>
-
-
 
 
                 <ModuleList courseId={this.state.courseId}/>
@@ -116,14 +107,14 @@ const styles = {
         color: 'black',
         width: '50px',
         height: '50px',
-        fontSize: '30px',
+        fontSize: '50px',
         fontFamily: 'Lucida Console',
     },
 
 
     position: {
 
-        paddingLeft: '100px',
+        paddingLeft: '200px',
     },
 
     naviationText: {

@@ -1,8 +1,8 @@
 
-const MODULE_API_URL = 'http://localhost:8080/api/course/CID/module';
+const MODULE_API_URL = 'https://course-manager-server-sijiazhu.herokuapp.com/api/course/CID/module';
 
-const MODULE_API_URL_DEL = 'http://localhost:8080/api/module/MODULE_ID';
-const MODULE_API_URL_FIND = 'http://localhost:8080/api/module';
+const MODULE_API_URL_DEL = 'https://course-manager-server-sijiazhu.herokuapp.com/api/module/MODULE_ID';
+const MODULE_API_URL_FIND = 'https://course-manager-server-sijiazhu.herokuapp.com/api/module';
 let _singleton = Symbol();
 export default class ModuleServiceClient {
     constructor(singletonToken) {

@@ -1,11 +1,12 @@
 import React from 'react';
 
-import {Link,Route} from 'react-router-dom'
+import {Link, Route} from 'react-router-dom'
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import ModuleEditor from "../containers/ModuleEditor";
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import Radium from 'radium';
- class TopicListItem
+
+class TopicListItem
     extends React.Component {
     constructor(props) {
         super(props);
@@ -14,20 +15,17 @@ import Radium from 'radium';
     render() {
         return (
 
-            <div >
+            <div>
 
 
+                <div style={[styles.tab]}>
+
+                    {this.props.topic.title}
+
+                </div>
 
 
-                    <div style={[styles.tab]}>
-
-                            {this.props.topic.title}
-
-                    </div>
-
-
-
-                <span  className="float-right">
+                <span className="float-right">
                 <i className="fa fa-remove" onClick={() => {
                     this.props.delete
                     (this.props.topic.id)
@@ -36,16 +34,14 @@ import Radium from 'radium';
                   </span>
 
 
-
-
-
             </div>
         );
     }
 }
+
 const styles = {
     /* Style the tab */
-    tab : {
+    tab: {
         float: 'left',
         // border: '1px solid #ccc',
         // paddingRight: '100px',
@@ -79,7 +75,7 @@ const styles = {
         ':active': {
             backgroundColor: '#ccc',
         },
-        ':link':{
+        ':link': {
             display: 'block',
             backgroundColor: 'inherit',
             color: 'black',
@@ -95,9 +91,9 @@ const styles = {
 
     },
     /* Style the tab content */
-    tabContent :{
+    tabContent: {
         color: 'black',
-        fontSize:'15px',
+        fontSize: '15px',
         // float: 'left',
         paddingLeft: '20px',
 

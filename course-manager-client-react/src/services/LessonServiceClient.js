@@ -1,8 +1,8 @@
 
 
-const LESSON_API_URL = 'http://localhost:8080/api/lesson';
-const LESSON_API_FIND = 'http://localhost:8080/api/course/courseID/module/module_ID/lesson';
-const LESSON_API_DEL = 'http://localhost:8080/api/lesson/lessonId';
+const LESSON_API_URL = 'https://course-manager-server-sijiazhu.herokuapp.com/api/lesson';
+const LESSON_API_FIND = 'https://course-manager-server-sijiazhu.herokuapp.com/api/course/courseID/module/module_ID/lesson';
+const LESSON_API_DEL = 'https://course-manager-server-sijiazhu.herokuapp.com/api/lesson/lessonId';
 let _singleton = Symbol();
 
 export default  class LessonServiceClient {
