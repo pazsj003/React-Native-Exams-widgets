@@ -11,28 +11,40 @@ class CourseRow extends React.Component {
     render() {
         return (
 
-            <tr className="col-10">
-                <td>
-                    <div style={[styles.tab]}>
-                        <Link to={`/course/${this.props.course.id}`}>
-                            <div style={styles.tabContent}>{this.props.course.title}</div>
-                        </Link>
-                    </div>
+            <div className="col-10  p-1">
+               <ul  className="list-unstyled">
+                <div
+                    key="coursetitle"
 
-                </td>
+                    style={[styles.tab]}>
+                    <li style={{display:'inline'}}>
+                    <Link to={`/course/${this.props.course.id}`}>
+                        <div style={styles.tabContent}>{this.props.course.title}</div>
+                    </Link>
+                        </li>
+                </div>
 
 
-                <td>
-                    <button className="btn btn-outline-success my-2 my-sm-0"
-                            onClick={() => {
-                                this.props.delete(this.props.course.id)
-                            }}>
+                <div
+                    key="courseDelete"
+                   >
+
+                    <li  style={{display:'inline'}}>
+                    <button
+
+                        style={{marginTop:'20px',marginLeft:'20px',height:'45px'}}
+                        className="btn btn-outline-success  "
+                        onClick={() => {
+                            this.props.delete(this.props.course.id)
+                        }}>
                         Delete
 
 
                     </button>
-                </td>
-            </tr>
+                        </li>
+                </div>
+                   </ul>
+            </div>
 
 
         )
@@ -44,7 +56,7 @@ const styles = {
     tab: {
         float: 'left',
         // border: '1px solid #ccc',
-        // paddingRight: '100px',
+        top: '20px',
         position: 'relative',
         backgroundColor: '#f1f1f1',
         width: '700px',
@@ -57,6 +69,7 @@ const styles = {
             backgroundColor: 'inherit',
             color: 'black',
             padding: '0px 10px',
+
             // width: '100%',
             // border: 'none',
             // outline: 'none',
@@ -80,6 +93,7 @@ const styles = {
             backgroundColor: 'inherit',
             color: 'black',
             padding: '0px 10px',
+
             // width: '100%',
             // border: 'none',
             // outline: 'none',
@@ -93,10 +107,10 @@ const styles = {
     /* Style the tab content */
     tabContent: {
         color: 'black',
-        fontSize: '15px',
+        fontSize: '18px',
         // float: 'left',
         paddingLeft: '20px',
-
+        paddingTop: '10px',
 
         // border: '1px solid #ccc',
         width: '200px',

@@ -15,7 +15,8 @@ class ModuleEditor
             this.setModuleId.bind(this);
         this.moduleService = ModuleServiceClient.instance;
         this.state = {
-            courseId: '', moduleId: '',
+            courseId: '',
+            moduleId: '',
             title: '',
         };
 

@@ -118,7 +118,7 @@ class ModuleList extends React.Component {
 
     render() {
         return (
-            <Switch>
+
 
                 <div className="row">
 
@@ -160,7 +160,7 @@ class ModuleList extends React.Component {
 
 
                 </div>
-            </Switch>
+
         )
 
     }

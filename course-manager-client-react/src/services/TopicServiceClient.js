@@ -1,6 +1,10 @@
-const TOPIC_API_URL = 'https://course-manager-server-sijiazhu.herokuapp.com/api/topic';
-const TOPIC_API_FIND = 'https://course-manager-server-sijiazhu.herokuapp.com/api/course/courseID/module/module_ID/lesson/lesson_Id/topic';
-const TOPIC_API_DEL = 'https://course-manager-server-sijiazhu.herokuapp.com/api/topic/topicId';
+// const TOPIC_API_URL = 'https://webdev-summerfull-2018.herokuapp.com/api/topic';
+// const TOPIC_API_FIND = 'https://webdev-summerfull-2018.herokuapp.com/api/course/courseID/module/module_ID/lesson/lesson_Id/topic';
+// const TOPIC_API_DEL = 'https://webdev-summerfull-2018.herokuapp.com/api/topic/topicId';
+
+const TOPIC_API_URL = 'http://localhost:8080/api/topic';
+const TOPIC_API_FIND = 'http://localhost:8080/api/course/courseID/module/module_ID/lesson/lesson_Id/topic';
+const TOPIC_API_DEL = 'http://localhost:8080/api/topic/topicId';
 let _singleton = Symbol();
 
 export default class TopicServiceClient {
@@ -44,9 +48,9 @@ export default class TopicServiceClient {
         })
     }
 
-    deleteTopic(lessonID) {
+    deleteTopic(topicID) {
         return fetch(TOPIC_API_DEL.replace
-        ('lessonId', lessonID), {
+        ('topicId', topicID), {
             method: 'delete'
         })
     }

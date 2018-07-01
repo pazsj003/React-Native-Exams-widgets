@@ -19,7 +19,7 @@ class LessonListItem
 
                 <div style={[styles.tab]}>
 
-                    <Link class="tablinks"
+                    <Link className="tablinks"
                           to={`/course/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.Lesson.id}`}>
 
 

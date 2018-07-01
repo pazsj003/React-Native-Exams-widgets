@@ -8,8 +8,8 @@ import {Switch} from 'react-router'
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import Radium from 'radium';
 
-const Course_API_URL = 'https://course-manager-react-sijiazhu.herokuapp.com/courses';
-
+// const Course_API_URL = 'https://course-manager-react-sijiazhu.herokuapp.com/courses';
+const Course_API_URL = 'http://localhost:3000/courses';
 class CourseList extends React.Component {
     constructor(props) {
         super(props);
@@ -93,86 +93,81 @@ class CourseList extends React.Component {
     render() {
         return (
 
-            <Switch>
-                <div>
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light ">
-                        <img src="https://cdn3.iconfinder.com/data/icons/education-3-5/48/108-64.png"
-                             className="img-rounded"/>
-                        <div>
-                            <a className="navbar-brand " style={styles.courseTittle} href="#">Course Manager</a>
 
-                        </div>
-                        <div className="navbar-brand " id="navbarNav" style={styles.position}>
-                            <ul className="navbar-nav">
-
-                                <li className="nav-item ">
-                                    <a className="nav-link" href={Course_API_URL}>Courses <span
-                                        className="sr-only">(current)</span></a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#">Sources</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#">Blackboard</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link disabled" href="#">Log In</a>
-                                </li>
-
-
-                            </ul>
-
-                        </div>
-                    </nav>
+            <div>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light ">
+                    <img src="https://cdn3.iconfinder.com/data/icons/education-3-5/48/108-64.png"
+                         className="img-rounded"/>
                     <div>
-                        <Route exact path="/course/:courseId"
-                               component={CourseEditor}>
-                        </Route>
+                        <a className="navbar-brand " style={styles.courseTittle} href="#">Course Manager</a>
 
                     </div>
+                    <div className="navbar-brand " id="navbarNav" style={styles.position}>
+                        <ul className="navbar-nav">
 
-                    <table className="table ">
-
-
-                        <ul className="nav nav-tabs ">
-                            <li>
-                                <th>Title</th>
+                            <li className="nav-item ">
+                                <a className="nav-link" href={Course_API_URL}>Courses <span
+                                    className="sr-only">(current)</span></a>
                             </li>
-                            <li style={{paddingLeft: '447px'}}>
-
-                                <form className="form-inline float-right ">
-                                    <th><input onChange={this.titleChanged}
-                                               className="form-control "
-                                               id="titleFld"
-                                               placeholder="cs101"/></th>
-                                    <th>
-                                        <button onClick={this.createCourse}
-                                                className="btn btn-outline-success my-2 my-sm-0">Add
-
-                                        </button>
-
-                                    </th>
-                                </form>
-
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Sources</a>
                             </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Blackboard</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link disabled" href="#">Log In</a>
+                            </li>
+
+
                         </ul>
 
+                    </div>
+                </nav>
+                <div>
+                    <Route exact path="/course/:courseId"
+                           component={CourseEditor}>
+                    </Route>
 
-                        <div>
+                </div>
 
-                            <tbody>
-                            {this.renderCourseRows()}
-                            </tbody>
 
-                        </div>
+                <ul className="nav nav-tabs ">
 
-                    </table>
+                    <li>
+                        <p>Course Title</p>
+                    </li>
+
+                    <li style={{paddingLeft: '447px'}}>
+
+                        <form className="form-inline float-right ">
+                            <input onChange={this.titleChanged}
+                                   className="form-control "
+                                   id="titleFld"
+                                   placeholder="cs101"/>
+
+                            <button onClick={this.createCourse}
+                                    className="btn btn-outline-success my-2 my-sm-0">Add
+
+                            </button>
+
+
+                        </form>
+
+                    </li>
+                </ul>
+
+
+                <div>
+
+
+                    {this.renderCourseRows()}
 
 
                 </div>
 
 
-            </Switch>
+            </div>
 
 
         )
