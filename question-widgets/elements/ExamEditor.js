@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+
 import {
     View,
     ScrollView,
@@ -7,8 +8,7 @@ import {
     StyleSheet,
     TextInput,
 
-}
-    from 'react-native'
+} from 'react-native'
 
 import {
     Alert,
@@ -23,43 +23,45 @@ import {
 } from 'react-native-elements'
 
 
-import AssignmentServiceClient from "../Services/AssignmentServiceClient"
+
+import ExamServiceClient from "../Services/ExamServiceClient";
 
 
 
 
-class AssignmentWidget extends Component {
 
+export default  class ExamEditor extends Component {
 
-    static navigationOptions = {title: 'Assignment'}
-
+    static navigationOptions = {title: 'Exam Editor'}
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             topicId: '',
             text: '',
             refresh: '',
-            assignment: {
+            exam: {
                 title: '',
                 description: '',
                 points: '',
                 id: -1,
-
-            }
+            },
+            questions: [],
+            // examId: -1,
         }
 
-        this.DeleteAssignment = this.DeleteAssignment.bind(this);
+
+        // this.props.findAllQuestionsForExam(this.props.examId),
+        // this.setExamId=this.setExamId.bind(this)
+
+        this.DeleteExam = this.DeleteExam.bind(this);
         this.setTopicId = this.setTopicId.bind(this);
-        this.CreateAssignment = this.CreateAssignment.bind(this);
-        this.UpdateAssignment = this.UpdateAssignment.bind(this);
+        this.CreateExam = this.CreateExam.bind(this);
+        this.UpdateExam = this.UpdateExam.bind(this);
         this.setRefresh = this.setRefresh.bind(this);
 
-        this.assignmentServiceClient = AssignmentServiceClient.instance;
+        this.examServiceClient = ExamServiceClient.instance;
     }
-
-
     componentDidMount() {
-
         const {navigation} = this.props;
         const topicId = navigation.getParam("topicId").toString();
         const refresh = navigation.getParam("refresh");
@@ -68,12 +70,17 @@ class AssignmentWidget extends Component {
 
         this.setTopicId(topicId);
         this.setRefresh(refresh);
-        const assignment = navigation.getParam("assignment");
-        if (assignment != null) {
-            this.setAssignment(assignment)
+        const exam = navigation.getParam("exam");
+        if (exam != null) {
+            this.setExam(exam)
         }
 
+        // this.setExamId(this.props.examId);
     }
+
+    // setExamId(ExamId) {
+    //     this.setState({examId: ExamId});
+    // }
 
     setRefresh(refresh) {
         this.setState({refresh: refresh});
@@ -92,44 +99,44 @@ class AssignmentWidget extends Component {
         this.setState({topicId: TopicId});
     }
 
-    setAssignment(assignment) {
-        this.setState({assignment: assignment})
+    setExam(exam) {
+        this.setState({exam: exam})
     }
 
-    UpdateAssignment() {
-        if (this.state.assignment.id !== -1) {
-            this.assignmentServiceClient
-                .updateAssignment(
-                    this.state.assignment.id,
-                    this.state.assignment)
+    UpdateExam() {
+        if (this.state.exam.id !== -1) {
+            this.examServiceClient
+                .updateExam(
+                    this.state.exam.id,
+                    this.state.exam)
                 .then(() => {
-                    alert("Assignment Updated");
+                    alert("Exam Updated");
                     this.state.refresh();
-                    this.props.navigation.navigate("WidgetList", {topicId: this.state.topicId});
+                    this.props.navigation.goBack();
                 });
 
         }
         else {
-            alert("Create Assignment First")
+            alert("Create Exam First")
         }
 
 
     }
 
-    CreateAssignment() {
+    CreateExam() {
 
-        if (this.state.assignment.id !== -1) {
-            alert("Assignment Already Created")
+        if (this.state.exam.id !== -1) {
+            alert("Exam Already Created")
 
         }
 
         else {
-            this.assignmentServiceClient
-                .createAssignment(
+            this.examServiceClient
+                .CreateExams(
                     this.state.topicId,
-                    this.state.assignment)
+                    this.state.exam)
                 .then(() => {
-                    alert("Assignment Created");
+                    alert("Exam Created");
                     this.state.refresh();
                     this.props.navigation.goBack();
                 })
@@ -139,33 +146,54 @@ class AssignmentWidget extends Component {
     }
 
 
-    DeleteAssignment() {
-        if (this.state.assignment.id !== -1) {
-            this.assignmentServiceClient
-                .deleteAssignment(this.state.assignment.id)
+    DeleteExam() {
+        if (this.state.exam.id !== -1) {
+            this.examServiceClient
+                .deleteExam(this.state.exam.id)
                 .then(() => {
-                    alert("Assignment Deleted");
+                    alert("Exam Deleted");
                     this.state.refresh();
-                    this.props.navigation.navigate("WidgetList", {topicId: this.state.topicId});
+                    this.props.navigation.goBack();
                 });
         }
         else {
-            alert("Create Assignment First")
+            alert("Create Exam First")
         }
     }
 
 
     updateForm(newState) {
-        console.log(newState.assignment.title)
+
         this.setState(newState)
     }
 
 
     render() {
-
-        return (
+        console.log("Exam"+this.state.exam)
+        return(
             <ScrollView>
                 <View style={{padding: 15}}>
+
+                    {/*this is QuestionList*/}
+
+                    {/*{this.state.questions.map(*/}
+                    {/*(question, index) => (*/}
+                    {/*<ListItem*/}
+                    {/*onPress={() => {*/}
+                    {/*if(question.type === "TrueFalse")*/}
+                    {/*this.props.navigation*/}
+                    {/*.navigate("TrueFalseQuestionEditor", {questionId: question.id})*/}
+                    {/*if(question.type === "MultipleChoice")*/}
+                    {/*this.props.navigation*/}
+                    {/*.navigate("MultipleChoiceQuestionEditor", {questionId: question.id})*/}
+                    {/*}}*/}
+                    {/*key={index}*/}
+                    {/*leftIcon={{name: question.icon}}*/}
+
+                    {/*subtitle={question.description}*/}
+                    {/*title={question.title}/>))}*/}
+
+
 
 
                     {/*this is editor*/}
@@ -175,7 +203,7 @@ class AssignmentWidget extends Component {
 
                         {/*<View style={styles.DInline}>*/}
                         <Text style={styles.previewText}>
-                            Assignment Editor</Text>
+                            Exam Editor</Text>
 
 
                         <FormLabel>Title</FormLabel>
@@ -183,9 +211,9 @@ class AssignmentWidget extends Component {
                             <TextInput
                                 style={styles.otherText}
                                 onChangeText={
-                                    text => this.updateForm({assignment: {...this.state.assignment, title: text}})
+                                    text => this.updateForm({exam: {...this.state.exam, title: text}})
                                 }
-                                value={this.state.assignment.title}
+                                value={this.state.exam.title}
 
                             />
                         </View>
@@ -201,9 +229,9 @@ class AssignmentWidget extends Component {
                                 style={styles.essayText}
                                 multiline={true}
                                 onChangeText={
-                                    text => this.updateForm({assignment: {...this.state.assignment, description: text}})
+                                    text => this.updateForm({exam: {...this.state.exam, description: text}})
                                 }
-                                value={this.state.assignment.description}
+                                value={this.state.exam.description}
 
                             />
                         </View>
@@ -218,9 +246,9 @@ class AssignmentWidget extends Component {
                             <TextInput
                                 style={styles.otherText}
                                 onChangeText={
-                                    text => this.updateForm({assignment: {...this.state.assignment, points: text}})
+                                    text => this.updateForm({exam: {...this.state.exam, points: text}})
                                 }
-                                value={this.state.assignment.points}
+                                value={this.state.exam.points}
                             />
                         </View>
                         <FormValidationMessage>
@@ -233,13 +261,13 @@ class AssignmentWidget extends Component {
 
                         <View style={styles.createGroupButton}>
                             <Button
-                                onPress={this.CreateAssignment}
+                                onPress={this.CreateExam}
                                 buttonStyle={styles.buttonStyle}
                                 backgroundColor="blue"
                                 color="white"
                                 title="Create"/>
                             <Button
-                                onPress={this.UpdateAssignment}
+                                onPress={this.UpdateExam}
                                 style={{right: 25}}
                                 buttonStyle={styles.buttonStyle}
                                 backgroundColor="green"
@@ -247,7 +275,7 @@ class AssignmentWidget extends Component {
                                 title="Update"/>
 
                             <Button
-                                onPress={this.DeleteAssignment}
+                                onPress={this.DeleteExam}
                                 style={{right: 50}}
                                 buttonStyle={styles.buttonStyle}
                                 backgroundColor="orange"
@@ -269,6 +297,7 @@ class AssignmentWidget extends Component {
 
                     </View>
 
+
                     {/*this is preview*/}
 
                     <View style={styles.borderStyle}>
@@ -277,10 +306,10 @@ class AssignmentWidget extends Component {
                             Preview</Text>
                         <View style={styles.DInline}>
                             <View>
-                                <Text style={styles.titleText}>{this.state.assignment.title}</Text>
+                                <Text style={styles.titleText}>{this.state.exam.title}</Text>
                             </View>
                             <View>
-                                <Text style={styles.pointsText}>{this.state.assignment.points}</Text>
+                                <Text style={styles.pointsText}>{this.state.exam.points}</Text>
                             </View>
                         </View>
 
@@ -292,93 +321,27 @@ class AssignmentWidget extends Component {
                             <TextInput
                                 multiline={true}
                                 style={styles.description}>
-                                {this.state.assignment.description}
+                                {this.state.exam.description}
                             </TextInput>
                         </View>
 
 
-                        {/*this is Essay*/}
 
-                        <Text style={styles.titleText}>Essay answer</Text>
+                        {/*/!*this is Submit*!/*/}
 
-                        <View style={styles.container}>
-                            <TextInput
-                                editable={true}
-                                selectTextOnFocus={true}
+                        {/*<View style={styles.buttonGroup}>*/}
 
-                                multiline={true}
+                        {/*<Button backgroundColor="#00BFFF"*/}
+                        {/*buttonStyle={{borderWidth: 0, borderRadius: 5}}*/}
+                        {/*color="white"*/}
+                        {/*title="Submit"/>*/}
+                        {/*<Button backgroundColor="red"*/}
+                        {/*buttonStyle={{borderWidth: 0, borderRadius: 5}}*/}
+                        {/*style={{right: 25}}*/}
+                        {/*color="white"*/}
+                        {/*title="Cancel"/>*/}
 
-                                style={styles.essayText}
-                                onChangeText={
-                                    text => this.updateForm({text: text})
-                                }/>
-                        </View>
-
-
-                        <Text style={styles.titleText}>Upload a file</Text>
-
-                        {/*this is upload*/}
-
-                        <View style={styles.container}>
-                            <View style={{
-                                padding: 10,
-
-                                flexDirection: 'row',
-                                borderStyle: 'solid',
-                                borderWidth: 1,
-                                borderColor: '#B8B8B8',
-                                justifyContent: 'start',
-                            }}>
-                                <Button backgroundColor="#F0F8FF"
-                                        buttonStyle={{
-                                            padding: 5,
-                                            borderWidth: 1,
-                                            borderRadius: 5,
-                                            width: 120,
-                                            borderColor: '#B8B8B8',
-                                            height: 40,
-                                            right: 15
-                                        }}
-                                        color="black"
-                                        title="Choose File"/>
-                                <Text style={{
-                                    fontSize: 20,
-                                    right: 20,
-                                    top: 5,
-                                    // fontWeight: 'bold',
-                                    // padding: 15,
-                                }}
-                                > No file chosen
-                                </Text>
-                            </View>
-                        </View>
-
-
-                        {/*this is link*/}
-
-                        <Text style={styles.titleText}>Submit a link</Text>
-
-                        <View style={styles.container}>
-                            <TextInput
-                                style={styles.otherText}
-                                onChangeText={
-                                    text => this.updateForm({text: text})
-                                }/>
-                        </View>
-
-                        <View style={styles.buttonGroup}>
-
-                            <Button backgroundColor="#00BFFF"
-                                    buttonStyle={{borderWidth: 0, borderRadius: 5}}
-                                    color="white"
-                                    title="Submit"/>
-                            <Button backgroundColor="red"
-                                    buttonStyle={{borderWidth: 0, borderRadius: 5}}
-                                    style={{right: 25}}
-                                    color="white"
-                                    title="Cancel"/>
-
-                        </View>
+                        {/*</View>*/}
 
                     </View>
 
@@ -388,13 +351,15 @@ class AssignmentWidget extends Component {
                         </Text>
                     </View>
 
+
+
+
                 </View>
             </ScrollView>
         )
     }
 }
 
-export default AssignmentWidget
 
 const styles = StyleSheet.create({
     baseText: {
@@ -463,12 +428,7 @@ const styles = StyleSheet.create({
         padding: 15,
 
     },
-    buttonStyle:{
-        borderWidth: 0,
-        borderRadius: 5,
-        padding:10,
 
-    },
 
     previewText: {
         fontSize: 30,
@@ -480,6 +440,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#B8B8B8',
         backgroundColor: 'white'
+    },
+    buttonStyle:{
+        borderWidth: 0,
+        borderRadius: 5,
+        padding:10,
+
     },
 
     buttonGroup: {
@@ -493,10 +459,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: 145,
 
-        right: 0,
+        // right: 7,
     }
 
 
 });
 
-// AppRegistry.registerComponent('AssignmentWidget', () => AssignmentWidget);
+
+
+

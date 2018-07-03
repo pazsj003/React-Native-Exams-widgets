@@ -26,12 +26,10 @@ import {
 import AssignmentServiceClient from "../Services/AssignmentServiceClient"
 
 
+class AssignmentItemList extends Component {
 
 
-class AssignmentWidget extends Component {
-
-
-    static navigationOptions = {title: 'Assignment'}
+    static navigationOptions = {title: 'Assignment Preview'}
 
     constructor(props) {
         super(props);
@@ -75,6 +73,7 @@ class AssignmentWidget extends Component {
 
     }
 
+
     setRefresh(refresh) {
         this.setState({refresh: refresh});
     }
@@ -105,7 +104,7 @@ class AssignmentWidget extends Component {
                 .then(() => {
                     alert("Assignment Updated");
                     this.state.refresh();
-                    this.props.navigation.navigate("WidgetList", {topicId: this.state.topicId});
+                    this.props.navigation.goBack();
                 });
 
         }
@@ -146,7 +145,7 @@ class AssignmentWidget extends Component {
                 .then(() => {
                     alert("Assignment Deleted");
                     this.state.refresh();
-                    this.props.navigation.navigate("WidgetList", {topicId: this.state.topicId});
+                    this.props.navigation.navigate("WidgetList", {topicId: topic.id})
                 });
         }
         else {
@@ -168,113 +167,147 @@ class AssignmentWidget extends Component {
                 <View style={{padding: 15}}>
 
 
-                    {/*this is editor*/}
+                    {/*/!*this is editor*!/*/}
 
 
-                    <View style={styles.borderStyle}>
+                    {/*<View style={styles.borderStyle}>*/}
 
-                        {/*<View style={styles.DInline}>*/}
-                        <Text style={styles.previewText}>
-                            Assignment Editor</Text>
-
-
-                        <FormLabel>Title</FormLabel>
-                        <View style={styles.container}>
-                            <TextInput
-                                style={styles.otherText}
-                                onChangeText={
-                                    text => this.updateForm({assignment: {...this.state.assignment, title: text}})
-                                }
-                                value={this.state.assignment.title}
-
-                            />
-                        </View>
-                        <FormValidationMessage>
-                            Title is required
-                        </FormValidationMessage>
-
-                        {/*this is Description*/}
-
-                        <FormLabel>Description</FormLabel>
-                        <View style={styles.container}>
-                            <TextInput
-                                style={styles.essayText}
-                                multiline={true}
-                                onChangeText={
-                                    text => this.updateForm({assignment: {...this.state.assignment, description: text}})
-                                }
-                                value={this.state.assignment.description}
-
-                            />
-                        </View>
-                        <FormValidationMessage>
-                            Description is required
-                        </FormValidationMessage>
-
-                        {/*this is Points*/}
-
-                        <FormLabel>Points</FormLabel>
-                        <View style={styles.container}>
-                            <TextInput
-                                style={styles.otherText}
-                                onChangeText={
-                                    text => this.updateForm({assignment: {...this.state.assignment, points: text}})
-                                }
-                                value={this.state.assignment.points}
-                            />
-                        </View>
-                        <FormValidationMessage>
-                            Description is required
-                        </FormValidationMessage>
+                    {/*/!*<View style={styles.DInline}>*!/*/}
+                    {/*<Text style={styles.previewText}>*/}
+                    {/*Assignment Editor</Text>*/}
 
 
-                        {/*this is Button*/}
+                    {/*<FormLabel>Title</FormLabel>*/}
+                    {/*<View style={styles.container}>*/}
+                    {/*<TextInput*/}
+                    {/*style={styles.otherText}*/}
+                    {/*onChangeText={*/}
+                    {/*text => this.updateForm({assignment: {...this.state.assignment, title: text}})*/}
+                    {/*}*/}
+                    {/*value={this.state.assignment.title}*/}
+
+                    {/*/>*/}
+                    {/*</View>*/}
+                    {/*<FormValidationMessage>*/}
+                    {/*Title is required*/}
+                    {/*</FormValidationMessage>*/}
+
+                    {/*/!*this is Description*!/*/}
+
+                    {/*<FormLabel>Description</FormLabel>*/}
+                    {/*<View style={styles.container}>*/}
+                    {/*<TextInput*/}
+                    {/*style={styles.essayText}*/}
+                    {/*multiline={true}*/}
+                    {/*onChangeText={*/}
+                    {/*text => this.updateForm({assignment: {...this.state.assignment, description: text}})*/}
+                    {/*}*/}
+                    {/*value={this.state.assignment.description}*/}
+
+                    {/*/>*/}
+                    {/*</View>*/}
+                    {/*<FormValidationMessage>*/}
+                    {/*Description is required*/}
+                    {/*</FormValidationMessage>*/}
+
+                    {/*/!*this is Points*!/*/}
+
+                    {/*<FormLabel>Points</FormLabel>*/}
+                    {/*<View style={styles.container}>*/}
+                    {/*<TextInput*/}
+                    {/*style={styles.otherText}*/}
+                    {/*onChangeText={*/}
+                    {/*text => this.updateForm({assignment: {...this.state.assignment, points: text}})*/}
+                    {/*}*/}
+                    {/*value={this.state.assignment.points}*/}
+                    {/*/>*/}
+                    {/*</View>*/}
+                    {/*<FormValidationMessage>*/}
+                    {/*Description is required*/}
+                    {/*</FormValidationMessage>*/}
 
 
-                        <View style={styles.createGroupButton}>
-                            <Button
-                                onPress={this.CreateAssignment}
-                                buttonStyle={styles.buttonStyle}
-                                backgroundColor="blue"
-                                color="white"
-                                title="Create"/>
-                            <Button
-                                onPress={this.UpdateAssignment}
-                                style={{right: 25}}
-                                buttonStyle={styles.buttonStyle}
-                                backgroundColor="green"
-                                color="white"
-                                title="Update"/>
+                    {/*/!*this is Button*!/*/}
 
-                            <Button
-                                onPress={this.DeleteAssignment}
-                                style={{right: 50}}
-                                buttonStyle={styles.buttonStyle}
-                                backgroundColor="orange"
-                                color="white"
-                                title="Delete"/>
 
-                            <Button
+                    {/*<View style={styles.createGroupButton}>*/}
+                    {/*<Button*/}
+                    {/*onPress={this.CreateAssignment}*/}
+                    {/*buttonStyle={{borderWidth: 0, borderRadius: 5}}*/}
+                    {/*backgroundColor="blue"*/}
+                    {/*color="white"*/}
+                    {/*title="Create"/>*/}
+                    {/*<Button*/}
+                    {/*onPress={this.UpdateAssignment}*/}
+                    {/*style={{right: 25}}*/}
+                    {/*buttonStyle={{borderWidth: 0, borderRadius: 5}}*/}
+                    {/*backgroundColor="green"*/}
+                    {/*color="white"*/}
+                    {/*title="Update"/>*/}
 
-                                onPress={() => this.props
-                                    .navigation
-                                    .goBack()}
+                    {/*<Button*/}
+                    {/*onPress={this.DeleteAssignment}*/}
+                    {/*style={{right: 50}}*/}
+                    {/*buttonStyle={{borderWidth: 0, borderRadius: 5}}*/}
+                    {/*backgroundColor="orange"*/}
+                    {/*color="white"*/}
+                    {/*title="Delete"/>*/}
 
-                                style={{right: 75}}
-                                buttonStyle={styles.buttonStyle}
-                                backgroundColor="red"
-                                color="white"
-                                title="Cancel"/>
-                        </View>
+                    {/*<Button*/}
 
-                    </View>
+                    {/*onPress={() => this.props*/}
+                    {/*.navigation*/}
+                    {/*.goBack()}*/}
+
+                    {/*style={{right: 75}}*/}
+                    {/*buttonStyle={{*/}
+                    {/*borderWidth: 0,*/}
+                    {/*borderRadius: 5,*/}
+
+
+                    {/*}}*/}
+                    {/*backgroundColor="red"*/}
+                    {/*color="white"*/}
+                    {/*title="Cancel"/>*/}
+                    {/*</View>*/}
+
+                    {/*</View>*/}
 
                     {/*this is preview*/}
 
                     <View style={styles.borderStyle}>
 
-                        <Text style={styles.previewText}>
-                            Preview</Text>
+                        <View style={styles.DInline}>
+                            <Text style={styles.previewText}>
+                                Preview</Text>
+
+                            <Button backgroundColor="orange"
+                                    onPress={() => this.props.navigation
+                                        .navigate("AssignmentWidget",
+                                            {
+                                                assignment: this.state.assignment,
+                                                topicId: this.state.topicId,
+                                                refresh: this.state.refresh,
+
+
+                                            })}
+
+                                    buttonStyle={{
+                                        borderWidth: 0,
+                                        borderRadius: 5,
+                                        padding:7,
+                                    }}
+                                    style={{
+                                        right: 25,
+                                        paddingTop: 15,
+                                        left: 4,
+
+                                    }}
+                                    color="white"
+                                    title="Edit"/>
+
+                        </View>
+
                         <View style={styles.DInline}>
                             <View>
                                 <Text style={styles.titleText}>{this.state.assignment.title}</Text>
@@ -394,7 +427,7 @@ class AssignmentWidget extends Component {
     }
 }
 
-export default AssignmentWidget
+export default AssignmentItemList
 
 const styles = StyleSheet.create({
     baseText: {
@@ -463,12 +496,7 @@ const styles = StyleSheet.create({
         padding: 15,
 
     },
-    buttonStyle:{
-        borderWidth: 0,
-        borderRadius: 5,
-        padding:10,
 
-    },
 
     previewText: {
         fontSize: 30,
@@ -493,7 +521,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: 145,
 
-        right: 0,
+        right: 7,
     }
 
 

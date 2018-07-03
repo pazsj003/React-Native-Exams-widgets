@@ -1,4 +1,4 @@
-const EXAM_API = 'http://localhost:8080/api/exam';
+const EXAM_API_URL = 'http://localhost:8080/api/exam';
 const EXAM_API_FIND = 'http://localhost:8080/api/topic/topicID/exam';
 const EXAM_API_ID = 'http://localhost:8080/api/exam/examId';
 let _singleton = Symbol();
@@ -17,7 +17,7 @@ export default class ExamServiceClient {
 
     findAllExam() {
 
-        return fetch(TOPIC_API_URL)
+        return fetch(EXAM_API_URL)
             .then(function (response) {
                 return response.json();
             });
@@ -63,8 +63,15 @@ export default class ExamServiceClient {
             })
     }
 
-    updateExam() {
-
+    updateExam(examId, exam) {
+        return fetch(EXAM_API_ID.replace('examId', examId),
+            {
+                body: JSON.stringify(exam),
+                headers: {'Content-Type': 'application/json'},
+                method: 'PUT'
+            }).then(function (response) {
+            return response.json();
+        });
     }
 
 

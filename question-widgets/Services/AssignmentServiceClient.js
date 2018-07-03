@@ -1,5 +1,5 @@
 const Assignment_API_URL = 'http://localhost:8080/api/assignment';
-const Assignment_API_FIND = 'http://localhost:8080/api/topic/topicID/assignment';
+const Assignment_API_FIND = 'http://localhost:8080/api/topic/topic_ID/assignment';
 const Assignment_API_ID = 'http://localhost:8080/api/assignment/assignmentId';
 let _singleton = Symbol();
 
@@ -27,15 +27,15 @@ export default class AssignmentServiceClient {
     findAllAssignmentsForTopic(topicID) {
         return fetch(
             Assignment_API_FIND
-                .replace('topicID', topicID))
+                .replace('topic_ID', topicID))
             .then(function (response) {
                 return response.json();
             })
     }
 
-    CreateAssignment(assignmentId, assign) {
-        console.log("yescreateExan");
-        return fetch(Assignment_API_FIND.replace('assignmentId', assignmentId),
+    createAssignment(topicID, assign) {
+        console.log("yes createAssignment");
+        return fetch(Assignment_API_FIND.replace('topic_ID', topicID),
             {
                 body: JSON.stringify(assign),
                 headers: {'Content-Type': 'application/json'},

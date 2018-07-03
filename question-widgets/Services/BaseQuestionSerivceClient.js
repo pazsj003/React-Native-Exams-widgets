@@ -1,6 +1,6 @@
-const Assignment_API_URL = 'http://localhost:8080/api/assignment';
-const Assignment_API_FIND = 'http://localhost:8080/api/topic/topicID/assignment';
-const Assignment_API_ID = 'http://localhost:8080/api/assignment/assignmentId';
+const BaseQuestion_API_URL = 'http://localhost:8080/api/base';
+const BaseQuestion_API_FIND = 'http://localhost:8080/api/exam/examID/base';
+const BaseQuestion_API_ID = 'http://localhost:8080/api/base/baseId';
 let _singleton = Symbol();
 
 export default class BaseQuestionSerivceClientt {
@@ -17,27 +17,27 @@ export default class BaseQuestionSerivceClientt {
 
     findAllBaseQuestion() {
 
-        return fetch(Assignment_API_URL)
+        return fetch(BaseQuestion_API_URL)
             .then(function (response) {
                 return response.json();
             });
 
     }
 
-    findAllBaseQuestionsForExam(topicID) {
+    findAllBaseQuestionsForExam(examID) {
         return fetch(
-            Assignment_API_FIND
-                .replace('topicID', topicID))
+            BaseQuestion_API_FIND
+                .replace('examID', examID))
             .then(function (response) {
                 return response.json();
             })
     }
 
-    CreateBaseQuestion(assignmentId, assign) {
+    CreateBaseQuestion(baseQuestionId, baseQuestion) {
         console.log("yescreateExan");
-        return fetch(Assignment_API_FIND.replace('assignmentId', assignmentId),
+        return fetch(BaseQuestion_API_FIND.replace('baseId', baseQuestionId),
             {
-                body: JSON.stringify(assign),
+                body: JSON.stringify(baseQuestion),
                 headers: {'Content-Type': 'application/json'},
                 method: 'POST'
             }).then(function (response) {
@@ -47,27 +47,27 @@ export default class BaseQuestionSerivceClientt {
 
     }
 
-    deleteBaseQuestion(assignmentID) {
-        return fetch(Assignment_API_ID.replace
-        ('assignmentId', assignmentID), {
+    deleteBaseQuestion(baseQuestionId) {
+        return fetch(BaseQuestion_API_ID.replace
+        ('baseId', baseQuestionId), {
             method: 'delete'
         })
     }
 
 
-    findBaseQuestionById(assignmentId) {
-        return fetch(Assignment_API_ID.replace
-        ('assignmentId', assignmentID))
+    findBaseQuestionById(baseQuestionId) {
+        return fetch(BaseQuestion_API_ID.replace
+        ('baseId', baseQuestionId))
             .then(function (response) {
                 return response.json()
 
             })
     }
 
-    updateBaseQuestion(assignmentId, assign) {
-        return fetch(Assignment_API_ID.replace('assignmentId', assignmentId),
+    updateBaseQuestion(baseQuestionId, baseQuestion) {
+        return fetch(BaseQuestion_API_ID.replace('baseId', baseQuestionId),
             {
-                body: JSON.stringify(assign),
+                body: JSON.stringify(baseQuestion),
                 headers: {'Content-Type': 'application/json'},
                 method: 'PUT'
             }).then(function (response) {

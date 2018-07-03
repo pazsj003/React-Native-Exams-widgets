@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import ExamServiceClient from "../Services/ExamServiceClient";
+import AssignmentServiceClient from"../Services/AssignmentServiceClient"
+
 import {View, Alert, TextInput, ScrollView} from 'react-native'
 import {Text, ListItem} from 'react-native-elements'
 import {Button} from 'react-native-elements'
@@ -19,15 +21,19 @@ class WidgetList extends Component {
             widgetId: 1,
             topicId: 1,
             courseId: 1,
-            moduleId: 1
+            moduleId: 1,
+            assignments:[]
         }
         this.titleChanged = this.titleChanged.bind(this);
         this.CreateExam = this.CreateExam.bind(this);
         this.setTopicId = this.setTopicId.bind(this);
+        this.refresh=this.refresh.bind(this);
         this.examService = ExamServiceClient.instance;
+        this.Assignmentservice=AssignmentServiceClient.instance;
     }
 
     componentDidMount() {
+        console.log("this is did mount ");
         const {navigation} = this.props;
         const topicId = navigation.getParam("topicId")
         console.log("topic ID " + topicId)
@@ -35,21 +41,45 @@ class WidgetList extends Component {
             topicId: topicId,
 
         })
+        this.findAllWidgetsForTopic(topicId);
+        console.log("didmount assignment" + this.state.assignments)
 
-        fetch("http://localhost:8080/api/topic/" + topicId + "/exam")
-            .then(response => (response.json()))
-            .then(exams => this.setState({exams}));
-        console.log("widgets didmount" + this.state.exams)
+
+
+
     }
 
     componentWillReceiveProps(newProps) {
-
+        console.log("this is will receove mount ");
         if (this.props.topicId !== newProps.topicId) {
             this.setTopicId(newProps.topicId);
             this.props.findAllExamsForTopic(newProps.topicId);
+            this.findAllWidgetsForTopic(newProps.topicId);
         }
 
 
+    }
+
+    findAllWidgetsForTopic(topicId){
+        this.Assignmentservice
+            .findAllAssignmentsForTopic(topicId)
+            .then((Assignments)=>{
+                this.setAssignments(Assignments)});
+
+        this.examService
+            .findAllExamsForTopic(topicId)
+            .then((exams)=>{
+                this.setExams(exams)
+            })
+
+
+        }
+
+
+
+    setAssignments(Assignments){
+        console.log("setAssignment" )
+        this.setState({assignments:Assignments})
     }
 
     setTopicId(TopicId) {
@@ -98,14 +128,6 @@ class WidgetList extends Component {
 
     }
 
-    findAllWidgetsForTopic(topicId) {
-        this.examService
-            .findAllExamsForTopic(topicId)
-            .then((widgets) => {
-                this.setWidgets(widgets)
-            });
-        console.log("widgets find from topic" + this.state.widgets)
-    }
 
     setExams(exams) {
         this.setState({exams: exams})
@@ -114,9 +136,34 @@ class WidgetList extends Component {
     setWidgets(widgets) {
         this.setState({widgets: widgets})
     }
+    refresh(){
+        this.componentDidMount();
+        // console.log("this is refresh ");
+        // const {navigation} = this.props;
+        // console.log("this is navigation ");
+        // const topicId = navigation.getParam("topicId")
+        // console.log("topic ID " + topicId)
+        // this.setState({
+        //     topicId: topicId,
+        //
+        // })
+        // console.log("this is topicId in refresh ");
+        // this.Assignmentservice.findAllAssignmentsForTopic(topicId)
+        //     .then(assignments=>this.setAssignments(assignments));
+        //
+        // this.examService.findAllExamsForTopic(topicId)
+        //     .then(exams=>this.setExams(exams));
+
+
+    }
+
+
 
     render() {
         console.log("widgets console" + this.state.exam.title)
+        console.log("assignment reder console" + this.state.assignments)
+        console.log("topicId"+this.state.topicId)
+        let {navigation} =this.props;
 
         return (
             <ScrollView>
@@ -128,47 +175,63 @@ class WidgetList extends Component {
                         (exam, index) => (
                             <ListItem
                                 onPress={() => this.props.navigation
-                                    .navigate("ExamWidget", {examId: exam.id})}
+                                    .navigate("ExamWidget",
+                                        {
+                                            topicId: this.state.topicId,
+                                            exam: exam,
+                                            refresh:this.refresh,
+
+
+                                        })}
                                 key={index}
-                                // subtitle={widget.description}
+                                subtitle={"Quiz"}
+                                leftIcon={{name: 'list'}}
                                 title={exam.title}/>))}
 
 
-                    {/*<Button title="Add Exam"*/}
-                    {/*onPress={() => this.props.navigation*/}
-                    {/*.navigate('Exam') } />*/}
+
+                    {this.state.assignments.map(
+                        (assignment, index) => (
+                            <ListItem
+                                onPress={() => this.props.navigation
+                                    .navigate("AssignmentItemList", {
+                                        topicId: this.state.topicId,
+                                        assignment: assignment,
+                                        refresh:this.refresh,
+                                    })}
+                                key={index}
+                                subtitle={"Assignment"}
+                                leftIcon={{name: 'code'}}
+                                title={assignment.title}
+
+
+
+                            />))}
+
 
 
                     <View>
-                        <FormLabel>Exam Title</FormLabel>
-
-                        <FormInput
-                            onChangeText={(text) => this.setState({exam: {title: text}})}
-
-                        />
-
-                        <FormValidationMessage>
-                            Title is required
-                        </FormValidationMessage>
 
                         <Button title="Add Exam"
-                                onPress={this.CreateExam}/>
+                                onPress={() => this.props.navigation
+                                    .navigate("ExamEditor",
+                                        {topicId: this.state.topicId,
+                                            refresh:this.refresh
+
+                                        })}/>
+
                     </View>
 
                     <View>
-                        <FormLabel>Assignment Title</FormLabel>
 
-                        <FormInput
-                            onChangeText={(text) => this.setState({assignment: {title: text}})}
-
-                        />
-
-                        <FormValidationMessage>
-                            Title is required
-                        </FormValidationMessage>
 
                         <Button title="Add Assignment"
-                                onPress={this.CreateAssignment}/>
+                                onPress={() => this.props.navigation
+                            .navigate("AssignmentWidget",
+                                {topicId: this.state.topicId,
+                                    refresh:this.refresh
+
+                                })}/>
                     </View>
 
 
