@@ -4,24 +4,26 @@ import FixedHeader from './elements/FixedHeader'
 import TextHeadings from './elements/TextHeadings'
 import Icons from './elements/Icons'
 
-import QuestionTypeButtonGroupChooser from './elements/QuestionTypeButtonGroupChooser'
-import QuestionTypePicker from './elements/QuestionTypePicker'
-import TrueFalseQuestionEditor from './elements/TrueFalseQuestionEditor'
-import MultipleChoiceQuestionEditor from './elements/MultipleChoiceQuestionEditor'
 import { createStackNavigator } from 'react-navigation'
 import {Button} from 'react-native-elements'
-import ScreenX from './elements/ScreenX'
+
+
 import CourseList from './components/CourseList'
 import ModuleList from './components/ModuleList'
 import LessonList from './components/LessonList'
 import TopicList from './components/TopicList'
 import WidgetList from './components/WidgetList'
-
-
 import ExamWidget from './elements/ExamWidget'
 import AssignmentWidget from './elements/AssignmentWidget'
-import AssignmentItemList from './elements/AssignmentItemList'
+import AssignmentItemPreview from './elements/AssignmentItemPreview'
 import ExamEditor from "./elements/ExamEditor";
+
+
+import TrueOrFalseQuestionWidget from "./elements/TrueOrFalseQuestionWidget";
+import EssayQuestionWidget from "./elements/EssayQuestionWidget";
+import MultipleChoiceQuestionWidget from "./elements/MultipleChoiceQuestionWidget";
+import FillInTheBlanksQuestionWidget from "./elements/FillInTheBlanksQuestionWidget";
+import TrueFalseQuestionPreview from "./elements/TrueFalseQuestionPreview";
 
 
 class Home extends React.Component {
@@ -47,18 +49,9 @@ class Home extends React.Component {
                         onPress={() => this.props.navigation
                             .navigate('WidgetList',{topicId:222}) } />
 
-
-
-                {/*<Button title="Go to Screen X"*/}
-
+                {/*<Button title="Exam"*/}
                         {/*onPress={() => this.props.navigation*/}
-                            {/*.navigate('ScreenX') } />*/}
-                {/*<Button title="Go to Screen A"*/}
-                        {/*onPress={() => this.props.navigation*/}
-                            {/*.navigate('ScreenA') } />*/}
-                {/*<Button title="Go to Screen B"*/}
-                        {/*onPress={() => this.props.navigation*/}
-                            {/*.navigate('ScreenB') } />*/}
+                            {/*.navigate('ExamWidget',{topicId:22}) } />*/}
 
 
                 {/*<TrueFalseQuestionEditor/>*/}
@@ -66,13 +59,13 @@ class Home extends React.Component {
                 {/*<MultipleChoiceQuestionEditor/>*/}
                 {/*<QuestionTypeButtonGroupChooser/>*/}
                 {/*<QuestionTypePicker/>*/}
+                {/*<TrueFalseQuestionPreview/>*/}
 
 
-
-                <Icons/>
-                <View style={{padding: 20}}>
-                    <TextHeadings/>
-                </View>
+                {/*<Icons/>*/}
+                {/*<View style={{padding: 20}}>*/}
+                    {/*<TextHeadings/>*/}
+                {/*</View>*/}
             </ScrollView>
         )
     }
@@ -110,12 +103,12 @@ const App = createStackNavigator({
     TopicList,
     WidgetList,
     ExamWidget,
-    AssignmentItemList,
-    TrueFalseQuestionEditor,
-    MultipleChoiceQuestionEditor,
-    ScreenA,
-    ScreenB,
-    ScreenX,
+    AssignmentItemPreview,
+    MultipleChoiceQuestionWidget,
+    FillInTheBlanksQuestionWidget,
+    EssayQuestionWidget,
+    TrueFalseQuestionPreview,
+    TrueOrFalseQuestionWidget,
     ExamEditor,
     AssignmentWidget,
 

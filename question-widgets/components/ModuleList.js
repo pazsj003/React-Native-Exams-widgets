@@ -17,7 +17,7 @@ class ModuleList extends Component {
         this.setState({
             courseId: courseId
         })
-        fetch('http://localhost:8080/api/course/' + courseId + '/module')
+        fetch('https://webdev-summerfull-2018.herokuapp.com/api/course/' + courseId + '/module')
             .then(response => (response.json()))
             .then(modules => this.setState({modules: modules}))
     }

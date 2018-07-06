@@ -1,6 +1,15 @@
-const BaseQuestion_API_URL = 'http://localhost:8080/api/base';
-const BaseQuestion_API_FIND = 'http://localhost:8080/api/exam/examID/base';
-const BaseQuestion_API_ID = 'http://localhost:8080/api/base/baseId';
+const BaseQuestion_API_URL = 'https://webdev-summerfull-2018.herokuapp.com/api/base';
+const BaseQuestion_API_FIND = 'https://webdev-summerfull-2018.herokuapp.com/api/exam/examID/base';
+const BaseQuestion_API_ID = 'https://webdev-summerfull-2018.herokuapp.com/api/base/baseId';
+
+
+// const BaseQuestion_API_URL = 'http://localhost:8080/api/base';
+// const BaseQuestion_API_FIND = 'http://localhost:8080/api/exam/examID/base';
+// const BaseQuestion_API_ID = 'http://localhost:8080/api/base/baseId';
+
+
+
+
 let _singleton = Symbol();
 
 export default class BaseQuestionSerivceClientt {
@@ -24,18 +33,18 @@ export default class BaseQuestionSerivceClientt {
 
     }
 
-    findAllBaseQuestionsForExam(examID) {
+    findAllBaseQuestionsForExam(ExamID) {
         return fetch(
             BaseQuestion_API_FIND
-                .replace('examID', examID))
+                .replace('examID', ExamID))
             .then(function (response) {
                 return response.json();
             })
     }
 
-    CreateBaseQuestion(baseQuestionId, baseQuestion) {
+    CreateBaseQuestion(examId, baseQuestion) {
         console.log("yescreateExan");
-        return fetch(BaseQuestion_API_FIND.replace('baseId', baseQuestionId),
+        return fetch(BaseQuestion_API_FIND.replace('examID', examId),
             {
                 body: JSON.stringify(baseQuestion),
                 headers: {'Content-Type': 'application/json'},

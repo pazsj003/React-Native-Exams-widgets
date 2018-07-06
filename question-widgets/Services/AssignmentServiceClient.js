@@ -1,6 +1,11 @@
-const Assignment_API_URL = 'http://localhost:8080/api/assignment';
-const Assignment_API_FIND = 'http://localhost:8080/api/topic/topic_ID/assignment';
-const Assignment_API_ID = 'http://localhost:8080/api/assignment/assignmentId';
+
+const Assignment_API_URL = 'https://webdev-summerfull-2018.herokuapp.com/api/assignment';
+const Assignment_API_FIND = 'https://webdev-summerfull-2018.herokuapp.com/api/topic/topic_ID/assignment';
+const Assignment_API_ID = 'https://webdev-summerfull-2018.herokuapp.com/api/assignment/assignmentId';
+
+// const Assignment_API_URL = 'http://localhost:8080/api/assignment';
+// const Assignment_API_FIND = 'http://localhost:8080/api/topic/topic_ID/assignment';
+// const Assignment_API_ID = 'http://localhost:8080/api/assignment/assignmentId';
 let _singleton = Symbol();
 
 export default class AssignmentServiceClient {

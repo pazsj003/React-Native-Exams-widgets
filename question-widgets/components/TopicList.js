@@ -18,12 +18,16 @@ class TopicList extends Component {
         const lessonId = navigation.getParam("lessonId")
         const courseId = navigation.getParam("courseId")
         const moduleId = navigation.getParam("moduleId")
-        fetch("http://localhost:8080/api/course/"+courseId+"/module/"+moduleId+"/lesson/"+lessonId+"/topic")
+        fetch("https://webdev-summerfull-2018.herokuapp.com/api/course/"+courseId+"/module/"+moduleId+"/lesson/"+lessonId+"/topic")
             .then(response => (response.json()))
             .then(topics => this.setState({topics}))
+
+
+
     }
     render() {
-        console.log(this.state.topics)
+        console.log("find all topics "+JSON.stringify(this.state.topics))
+
         return(
     <ScrollView>
         <FixedHeader/>

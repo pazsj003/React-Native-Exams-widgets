@@ -37,13 +37,15 @@ class AssignmentWidget extends Component {
         super(props);
         this.state = {
             topicId: '',
-            text: '',
+
             refresh: '',
             assignment: {
                 title: '',
                 description: '',
                 points: '',
                 id: -1,
+                text: '',
+                hrefLink:'',
 
             }
         }

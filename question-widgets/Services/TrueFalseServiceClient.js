@@ -1,6 +1,12 @@
-const TrueFalseQuestion_API_URL = 'http://localhost:8080/api/truefalse';
-const TrueFalseQuestion_API_FIND = 'http://localhost:8080/api/exam/examID/truefalse';
-const TrueFalseQuestion_API_ID = 'http://localhost:8080/api/truefalse/TrueFalseId';
+// const TrueFalseQuestion_API_URL = 'http://localhost:8080/api/truefalse';
+// const TrueFalseQuestion_API_FIND = 'http://localhost:8080/api/exam/examID/truefalse';
+// const TrueFalseQuestion_API_ID = 'http://localhost:8080/api/truefalse/TrueFalseId';
+
+
+const TrueFalseQuestion_API_URL = 'https://webdev-summerfull-2018.herokuapp.com/api/truefalse';
+const TrueFalseQuestion_API_FIND = 'https://webdev-summerfull-2018.herokuapp.com/api/exam/examID/truefalse';
+const TrueFalseQuestion_API_ID = 'https://webdev-summerfull-2018.herokuapp.com/api/truefalse/TrueFalseId';
+
 let _singleton = Symbol();
 
 export default class TrueFalseServiceClient {
@@ -33,9 +39,9 @@ export default class TrueFalseServiceClient {
             })
     }
 
-    CreateTrueFalseQuestion(TrueFalseQuestionId, TrueFalseQuestion) {
+    CreateTrueFalseQuestion(examID, TrueFalseQuestion) {
         console.log("yescreateExan");
-        return fetch(TrueFalseQuestion_API_FIND.replace('TrueFalseId', TrueFalseQuestionId),
+        return fetch(TrueFalseQuestion_API_FIND.replace('examID', examID),
             {
                 body: JSON.stringify(TrueFalseQuestion),
                 headers: {'Content-Type': 'application/json'},

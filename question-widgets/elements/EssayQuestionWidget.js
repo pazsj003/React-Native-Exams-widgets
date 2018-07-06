@@ -23,64 +23,66 @@ import {
 } from 'react-native-elements'
 
 
-
 import ExamServiceClient from "../Services/ExamServiceClient";
+import EssayQuestionServiceClient from "../Services/EssayQuestionServiceClient"
+import FillInBlankServiceClient from "../Services/FillInBlankServiceClient"
+import MultipleChoiceServiceClient from "../Services/MultipleChoiceServiceClient"
+import TrueFalseServiceClient from "../Services/TrueFalseServiceClient"
+import BaseQuestionServiceClient from "../Services/BaseQuestionServiceClient"
 
 
+export default class EssayQuestionWidget extends Component {
 
+    static navigationOptions = {title: 'Essay Question'}
 
-
-export default  class ExamEditor extends Component {
-
-    static navigationOptions = {title: 'Exam Editor'}
     constructor(props) {
         super(props)
         this.state = {
-            topicId: '',
-            text: '',
+            examId: '',
+
             refresh: '',
-            exam: {
+            question: {
                 title: '',
                 description: '',
                 points: '',
+                instructions: '',
                 id: -1,
+                type: '',
+                icon: '',
+                text: '',
             },
-            questions: [],
-            // examId: -1,
+
         }
 
 
-        // this.props.findAllQuestionsForExam(this.props.examId),
-        // this.setExamId=this.setExamId.bind(this)
-
-        this.DeleteExam = this.DeleteExam.bind(this);
-        this.setTopicId = this.setTopicId.bind(this);
-        this.CreateExam = this.CreateExam.bind(this);
-        this.UpdateExam = this.UpdateExam.bind(this);
+        this.UpdateQuestion = this.UpdateQuestion.bind(this);
         this.setRefresh = this.setRefresh.bind(this);
-
+        this.essayQuestionServiceClient = EssayQuestionServiceClient.instance;
         this.examServiceClient = ExamServiceClient.instance;
     }
+
     componentDidMount() {
         const {navigation} = this.props;
-        const topicId = navigation.getParam("topicId").toString();
+        const examId = navigation.getParam("examId").toString();
         const refresh = navigation.getParam("refresh");
 
-        console.log("topic ID " + topicId)
+        console.log("exam ID " + examId)
 
-        this.setTopicId(topicId);
+
         this.setRefresh(refresh);
-        const exam = navigation.getParam("exam");
-        if (exam != null) {
-            this.setExam(exam)
+        const question = navigation.getParam("question");
+        if (question != null) {
+            this.setQuestion(question)
         }
 
-        // this.setExamId(this.props.examId);
+        this.setExamId(examId);
+
+        this.setQuestion(question)
     }
 
-    // setExamId(ExamId) {
-    //     this.setState({examId: ExamId});
-    // }
+    setExamId(ExamId) {
+        this.setState({examId: ExamId});
+    }
 
     setRefresh(refresh) {
         this.setState({refresh: refresh});
@@ -88,77 +90,30 @@ export default  class ExamEditor extends Component {
 
     componentWillReceiveProps(newProps) {
 
-        if (this.props.topicId !== newProps.topicId) {
-            this.setTopicId(newProps.topicId);
+        if (this.props.examId !== newProps.examId) {
+            this.setTopicId(newProps.examId);
 
 
         }
     }
 
-    setTopicId(TopicId) {
-        this.setState({topicId: TopicId});
+
+    setQuestion(question) {
+        this.setState({question: question})
     }
 
-    setExam(exam) {
-        this.setState({exam: exam})
-    }
+    UpdateQuestion() {
 
-    UpdateExam() {
-        if (this.state.exam.id !== -1) {
-            this.examServiceClient
-                .updateExam(
-                    this.state.exam.id,
-                    this.state.exam)
-                .then(() => {
-                    alert("Exam Updated");
-                    this.state.refresh();
-                    this.props.navigation.goBack();
-                });
+        this.essayQuestionServiceClient
+            .updateEssayQuestion(
+                this.state.question.id,
+                this.state.question)
+            .then(() => {
+                alert("Question Saved");
+                this.state.refresh();
+                this.props.navigation.goBack();
+            });
 
-        }
-        else {
-            alert("Create Exam First")
-        }
-
-
-    }
-
-    CreateExam() {
-
-        if (this.state.exam.id !== -1) {
-            alert("Exam Already Created")
-
-        }
-
-        else {
-            this.examServiceClient
-                .CreateExams(
-                    this.state.topicId,
-                    this.state.exam)
-                .then(() => {
-                    alert("Exam Created");
-                    this.state.refresh();
-                    this.props.navigation.goBack();
-                })
-        }
-
-
-    }
-
-
-    DeleteExam() {
-        if (this.state.exam.id !== -1) {
-            this.examServiceClient
-                .deleteExam(this.state.exam.id)
-                .then(() => {
-                    alert("Exam Deleted");
-                    this.state.refresh();
-                    this.props.navigation.goBack();
-                });
-        }
-        else {
-            alert("Create Exam First")
-        }
     }
 
 
@@ -169,8 +124,8 @@ export default  class ExamEditor extends Component {
 
 
     render() {
-        console.log("Exam"+this.state.exam)
-        return(
+        console.log("Question" + this.state.question)
+        return (
             <ScrollView>
                 <View style={{padding: 15}}>
 
@@ -181,8 +136,8 @@ export default  class ExamEditor extends Component {
                     <View style={styles.borderStyle}>
 
                         {/*<View style={styles.DInline}>*/}
-                        <Text style={styles.previewText}>
-                            Exam Editor</Text>
+                        {/*<Text style={styles.previewText}>*/}
+                        {/*Question Editor</Text>*/}
 
 
                         <FormLabel>Title</FormLabel>
@@ -190,9 +145,9 @@ export default  class ExamEditor extends Component {
                             <TextInput
                                 style={styles.otherText}
                                 onChangeText={
-                                    text => this.updateForm({exam: {...this.state.exam, title: text}})
+                                    text => this.updateForm({question: {...this.state.question, title: text}})
                                 }
-                                value={this.state.exam.title}
+                                value={this.state.question.title}
 
                             />
                         </View>
@@ -208,9 +163,9 @@ export default  class ExamEditor extends Component {
                                 style={styles.essayText}
                                 multiline={true}
                                 onChangeText={
-                                    text => this.updateForm({exam: {...this.state.exam, description: text}})
+                                    text => this.updateForm({question: {...this.state.question, description: text}})
                                 }
-                                value={this.state.exam.description}
+                                value={this.state.question.description}
 
                             />
                         </View>
@@ -225,13 +180,13 @@ export default  class ExamEditor extends Component {
                             <TextInput
                                 style={styles.otherText}
                                 onChangeText={
-                                    text => this.updateForm({exam: {...this.state.exam, points: text}})
+                                    text => this.updateForm({question: {...this.state.question, points: text}})
                                 }
-                                value={this.state.exam.points}
+                                value={this.state.question.points}
                             />
                         </View>
                         <FormValidationMessage>
-                            Description is required
+                            Points is required
                         </FormValidationMessage>
 
 
@@ -240,26 +195,12 @@ export default  class ExamEditor extends Component {
 
                         <View style={styles.createGroupButton}>
                             <Button
-                                onPress={this.CreateExam}
+                                onPress={this.UpdateQuestion}
                                 buttonStyle={styles.buttonStyle}
-                                backgroundColor="blue"
+                                backgroundColor="#00BFFF"
                                 color="white"
-                                title="Create"/>
-                            <Button
-                                onPress={this.UpdateExam}
-                                style={{right: 25}}
-                                buttonStyle={styles.buttonStyle}
-                                backgroundColor="green"
-                                color="white"
-                                title="Update"/>
+                                title="Save"/>
 
-                            <Button
-                                onPress={this.DeleteExam}
-                                style={{right: 50}}
-                                buttonStyle={styles.buttonStyle}
-                                backgroundColor="orange"
-                                color="white"
-                                title="Delete"/>
 
                             <Button
 
@@ -267,7 +208,7 @@ export default  class ExamEditor extends Component {
                                     .navigation
                                     .goBack()}
 
-                                style={{right: 75}}
+                                style={{right: 25}}
                                 buttonStyle={styles.buttonStyle}
                                 backgroundColor="red"
                                 color="white"
@@ -285,10 +226,10 @@ export default  class ExamEditor extends Component {
                             Preview</Text>
                         <View style={styles.DInline}>
                             <View>
-                                <Text style={styles.titleText}>{this.state.exam.title}</Text>
+                                <Text style={styles.titleText}>{this.state.question.title}</Text>
                             </View>
                             <View>
-                                <Text style={styles.pointsText}>{this.state.exam.points}</Text>
+                                <Text style={styles.pointsText}>{this.state.question.points}</Text>
                             </View>
                         </View>
 
@@ -300,27 +241,55 @@ export default  class ExamEditor extends Component {
                             <TextInput
                                 multiline={true}
                                 style={styles.description}>
-                                {this.state.exam.description}
+                                {this.state.question.description}
                             </TextInput>
                         </View>
 
+                        {/*this is Essay*/}
 
+                        <Text style={styles.titleText}>Essay answer</Text>
 
-                        {/*/!*this is Submit*!/*/}
+                        <View style={styles.container}>
+                            <TextInput
+                                editable={true}
+                                selectTextOnFocus={true}
 
-                        {/*<View style={styles.buttonGroup}>*/}
+                                multiline={true}
 
-                        {/*<Button backgroundColor="#00BFFF"*/}
-                        {/*buttonStyle={{borderWidth: 0, borderRadius: 5}}*/}
-                        {/*color="white"*/}
-                        {/*title="Submit"/>*/}
-                        {/*<Button backgroundColor="red"*/}
-                        {/*buttonStyle={{borderWidth: 0, borderRadius: 5}}*/}
-                        {/*style={{right: 25}}*/}
-                        {/*color="white"*/}
-                        {/*title="Cancel"/>*/}
+                                style={styles.essayText}
+                                onChangeText={
+                                    text => this.updateForm({question: {...this.state.question, text: text}})
+                                }/>
+                        </View>
 
-                        {/*</View>*/}
+                        {/*this is Submit*/}
+
+                        <View style={styles.buttonGroup}>
+
+                            <Button
+                                onPress={this.UpdateQuestion}
+                                backgroundColor="#00BFFF"
+                                buttonStyle={{
+                                    borderWidth: 0,
+                                    borderRadius: 5
+                                }}
+                                color="white"
+                                title="Submit"/>
+                            <Button
+                                onPress={() => this.props
+                                    .navigation
+                                    .goBack()}
+
+                                backgroundColor="red"
+                                buttonStyle={{
+                                    borderWidth: 0,
+                                    borderRadius: 5
+                                }}
+                                style={{right: 25}}
+                                color="white"
+                                title="Cancel"/>
+
+                        </View>
 
                     </View>
 
@@ -329,8 +298,6 @@ export default  class ExamEditor extends Component {
                             {'\n'}
                         </Text>
                     </View>
-
-
 
 
                 </View>
@@ -420,10 +387,10 @@ const styles = StyleSheet.create({
         borderColor: '#B8B8B8',
         backgroundColor: 'white'
     },
-    buttonStyle:{
+    buttonStyle: {
         borderWidth: 0,
         borderRadius: 5,
-        padding:10,
+        padding: 10,
 
     },
 

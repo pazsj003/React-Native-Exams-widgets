@@ -13,7 +13,7 @@ class WidgetList extends Component {
     static navigationOptions = {title: 'Assignment and Exam'}
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             exam: {title: '', id: ''},
             widgets: [],
@@ -104,22 +104,6 @@ class WidgetList extends Component {
     }
 
 
-    CreateAssignment() {
-        console.log("title is " + this.state.exam.title)
-        console.log("topicID is " + this.state.topicId)
-        console.log("exam is " + this.state.exam)
-
-        this.examService.CreateExams(
-            this.state.topicId,
-            this.state.exam)
-            .then(() => {
-                this.findAllWidgetsForTopic
-                (this.state.topicId)
-            });
-        console.log("create end")
-
-
-    }
 
     titleChanged(event) {
         console.log(event.nativeEvent.text);
@@ -160,9 +144,9 @@ class WidgetList extends Component {
 
 
     render() {
-        console.log("widgets console" + this.state.exam.title)
-        console.log("assignment reder console" + this.state.assignments)
-        console.log("topicId"+this.state.topicId)
+
+        console.log("assignment  console" + this.state.assignments)
+
         let {navigation} =this.props;
 
         return (
@@ -180,6 +164,7 @@ class WidgetList extends Component {
                                             topicId: this.state.topicId,
                                             exam: exam,
                                             refresh:this.refresh,
+                                            examId:exam.id,
 
 
                                         })}
@@ -194,7 +179,7 @@ class WidgetList extends Component {
                         (assignment, index) => (
                             <ListItem
                                 onPress={() => this.props.navigation
-                                    .navigate("AssignmentItemList", {
+                                    .navigate("AssignmentItemPreview", {
                                         topicId: this.state.topicId,
                                         assignment: assignment,
                                         refresh:this.refresh,

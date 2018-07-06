@@ -1,6 +1,12 @@
-const EXAM_API_URL = 'http://localhost:8080/api/exam';
-const EXAM_API_FIND = 'http://localhost:8080/api/topic/topicID/exam';
-const EXAM_API_ID = 'http://localhost:8080/api/exam/examId';
+// const EXAM_API_URL = 'http://localhost:8080/api/exam';
+// const EXAM_API_FIND = 'http://localhost:8080/api/topic/topicID/exam';
+// const EXAM_API_ID = 'http://localhost:8080/api/exam/examId';
+
+
+const EXAM_API_URL = 'https://webdev-summerfull-2018.herokuapp.com/api/exam';
+const EXAM_API_FIND = 'https://webdev-summerfull-2018.herokuapp.com/api/topic/topicID/exam';
+const EXAM_API_ID = 'https://webdev-summerfull-2018.herokuapp.com/api/exam/examId';
+
 let _singleton = Symbol();
 
 export default class ExamServiceClient {

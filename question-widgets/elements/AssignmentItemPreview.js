@@ -26,7 +26,7 @@ import {
 import AssignmentServiceClient from "../Services/AssignmentServiceClient"
 
 
-class AssignmentItemList extends Component {
+class AssignmentItemPreview extends Component {
 
 
     static navigationOptions = {title: 'Assignment Preview'}
@@ -167,111 +167,6 @@ class AssignmentItemList extends Component {
                 <View style={{padding: 15}}>
 
 
-                    {/*/!*this is editor*!/*/}
-
-
-                    {/*<View style={styles.borderStyle}>*/}
-
-                    {/*/!*<View style={styles.DInline}>*!/*/}
-                    {/*<Text style={styles.previewText}>*/}
-                    {/*Assignment Editor</Text>*/}
-
-
-                    {/*<FormLabel>Title</FormLabel>*/}
-                    {/*<View style={styles.container}>*/}
-                    {/*<TextInput*/}
-                    {/*style={styles.otherText}*/}
-                    {/*onChangeText={*/}
-                    {/*text => this.updateForm({assignment: {...this.state.assignment, title: text}})*/}
-                    {/*}*/}
-                    {/*value={this.state.assignment.title}*/}
-
-                    {/*/>*/}
-                    {/*</View>*/}
-                    {/*<FormValidationMessage>*/}
-                    {/*Title is required*/}
-                    {/*</FormValidationMessage>*/}
-
-                    {/*/!*this is Description*!/*/}
-
-                    {/*<FormLabel>Description</FormLabel>*/}
-                    {/*<View style={styles.container}>*/}
-                    {/*<TextInput*/}
-                    {/*style={styles.essayText}*/}
-                    {/*multiline={true}*/}
-                    {/*onChangeText={*/}
-                    {/*text => this.updateForm({assignment: {...this.state.assignment, description: text}})*/}
-                    {/*}*/}
-                    {/*value={this.state.assignment.description}*/}
-
-                    {/*/>*/}
-                    {/*</View>*/}
-                    {/*<FormValidationMessage>*/}
-                    {/*Description is required*/}
-                    {/*</FormValidationMessage>*/}
-
-                    {/*/!*this is Points*!/*/}
-
-                    {/*<FormLabel>Points</FormLabel>*/}
-                    {/*<View style={styles.container}>*/}
-                    {/*<TextInput*/}
-                    {/*style={styles.otherText}*/}
-                    {/*onChangeText={*/}
-                    {/*text => this.updateForm({assignment: {...this.state.assignment, points: text}})*/}
-                    {/*}*/}
-                    {/*value={this.state.assignment.points}*/}
-                    {/*/>*/}
-                    {/*</View>*/}
-                    {/*<FormValidationMessage>*/}
-                    {/*Description is required*/}
-                    {/*</FormValidationMessage>*/}
-
-
-                    {/*/!*this is Button*!/*/}
-
-
-                    {/*<View style={styles.createGroupButton}>*/}
-                    {/*<Button*/}
-                    {/*onPress={this.CreateAssignment}*/}
-                    {/*buttonStyle={{borderWidth: 0, borderRadius: 5}}*/}
-                    {/*backgroundColor="blue"*/}
-                    {/*color="white"*/}
-                    {/*title="Create"/>*/}
-                    {/*<Button*/}
-                    {/*onPress={this.UpdateAssignment}*/}
-                    {/*style={{right: 25}}*/}
-                    {/*buttonStyle={{borderWidth: 0, borderRadius: 5}}*/}
-                    {/*backgroundColor="green"*/}
-                    {/*color="white"*/}
-                    {/*title="Update"/>*/}
-
-                    {/*<Button*/}
-                    {/*onPress={this.DeleteAssignment}*/}
-                    {/*style={{right: 50}}*/}
-                    {/*buttonStyle={{borderWidth: 0, borderRadius: 5}}*/}
-                    {/*backgroundColor="orange"*/}
-                    {/*color="white"*/}
-                    {/*title="Delete"/>*/}
-
-                    {/*<Button*/}
-
-                    {/*onPress={() => this.props*/}
-                    {/*.navigation*/}
-                    {/*.goBack()}*/}
-
-                    {/*style={{right: 75}}*/}
-                    {/*buttonStyle={{*/}
-                    {/*borderWidth: 0,*/}
-                    {/*borderRadius: 5,*/}
-
-
-                    {/*}}*/}
-                    {/*backgroundColor="red"*/}
-                    {/*color="white"*/}
-                    {/*title="Cancel"/>*/}
-                    {/*</View>*/}
-
-                    {/*</View>*/}
 
                     {/*this is preview*/}
 
@@ -427,7 +322,7 @@ class AssignmentItemList extends Component {
     }
 }
 
-export default AssignmentItemList
+export default AssignmentItemPreview
 
 const styles = StyleSheet.create({
     baseText: {

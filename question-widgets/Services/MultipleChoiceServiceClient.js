@@ -1,6 +1,12 @@
-const MultipleChoice_API_URL = 'http://localhost:8080/api/choice';
-const MultipleChoice_API_FIND = 'http://localhost:8080/api/exam/examID/choice';
-const MultipleChoice_API_ID = 'http://localhost:8080/api/choice/choiceId';
+// const MultipleChoice_API_URL = 'http://localhost:8080/api/choice';
+// const MultipleChoice_API_FIND = 'http://localhost:8080/api/exam/examID/choice';
+// const MultipleChoice_API_ID = 'http://localhost:8080/api/choice/choiceId';
+
+const MultipleChoice_API_URL = 'https://webdev-summerfull-2018.herokuapp.com/api/choice';
+const MultipleChoice_API_FIND = 'https://webdev-summerfull-2018.herokuapp.com/api/exam/examID/choice';
+const MultipleChoice_API_ID = 'https://webdev-summerfull-2018.herokuapp.com/api/choice/choiceId';
+
+
 let _singleton = Symbol();
 
 export default class MultipleChoiceServiceClient {
@@ -33,9 +39,9 @@ export default class MultipleChoiceServiceClient {
             })
     }
 
-    CreateMultipleChoiceQuestion(MultipleChoiceQuestionId, MultipleChoiceQuestion) {
+    CreateMultipleChoiceQuestion(ExamId, MultipleChoiceQuestion) {
         console.log("yescreateExan");
-        return fetch(MultipleChoice_API_FIND.replace('choiceId', MultipleChoiceQuestionId),
+        return fetch(MultipleChoice_API_FIND.replace('examID', ExamId),
             {
                 body: JSON.stringify(MultipleChoiceQuestion),
                 headers: {'Content-Type': 'application/json'},

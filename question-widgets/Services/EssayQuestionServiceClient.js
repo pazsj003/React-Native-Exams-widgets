@@ -1,6 +1,13 @@
-const ESSAYQuestion_API_URL = 'http://localhost:8080/api/essay';
-const ESSAYQuestion_API_FIND = 'http://localhost:8080/api/exam/examID/essay';
-const ESSAYQuestion_API_ID = 'http://localhost:8080/api/essay/essayId';
+const ESSAYQuestion_API_URL = 'https://webdev-summerfull-2018.herokuapp.com/api/essay';
+const ESSAYQuestion_API_FIND = 'https://webdev-summerfull-2018.herokuapp.com/api/exam/examID/essay';
+const ESSAYQuestion_API_ID = 'https://webdev-summerfull-2018.herokuapp.com/api/essay/essayId';
+
+
+// const ESSAYQuestion_API_URL = 'http://localhost:8080/api/essay';
+// const ESSAYQuestion_API_FIND = 'http://localhost:8080/api/exam/examID/essay';
+// const ESSAYQuestion_API_ID = 'http://localhost:8080/api/essay/essayId';
+
+
 let _singleton = Symbol();
 
 export default class EssayQuestionServiceClient {
@@ -33,11 +40,11 @@ export default class EssayQuestionServiceClient {
             })
     }
 
-    CreateEssayQuestion(easyQuestionId, EassyQuestion) {
-        console.log("yescreateExan");
-        return fetch(ESSAYQuestion_API_FIND.replace('essayId', easyQuestionId),
+    CreateEssayQuestion(examID, EssayQuestion) {
+        console.log("yes create Essay");
+        return fetch(ESSAYQuestion_API_FIND.replace('examID', examID),
             {
-                body: JSON.stringify(EassyQuestion),
+                body: JSON.stringify(EssayQuestion),
                 headers: {'Content-Type': 'application/json'},
                 method: 'POST'
             }).then(function (response) {
